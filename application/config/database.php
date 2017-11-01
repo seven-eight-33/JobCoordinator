@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => 'mysql475.db.sakura.ne.jp',
+	'username' => 'h-matsuya',
+	'password' => '82ImZdq0f5QH5CLh',
+	'database' => 'h-matsuya_job_coordinator',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
