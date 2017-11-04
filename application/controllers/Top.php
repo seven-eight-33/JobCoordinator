@@ -20,7 +20,6 @@ class Top extends CI_Controller {
 	 */
 	 public function index()
 	 {
-echo 'aaaa';
-		 //$this->load->view('welcome_message');
+		 $this->load->view('top');
 	 }
 }
