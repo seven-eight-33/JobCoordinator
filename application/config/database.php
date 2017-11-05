@@ -73,7 +73,7 @@ require_once APPPATH. 'controllers/env.php';
 */
 $active_group = 'default';
 $query_builder = TRUE;
-
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => $_SERVER['DB_HOST'],
@@ -88,6 +88,29 @@ $db['default'] = array(
 	'cachedir' => '',
 	'char_set' => $_SERVER['DB_CHAR_SET'],
 	'dbcollat' => $_SERVER['DB_COLLAT'],
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+*/
+
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'mysql475.db.sakura.ne.jp',
+	'username' => 'h-matsuya',
+	'password' => '82ImZdq0f5QH5CLh',
+	'database' => 'matsuya_job_coordinator',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,
