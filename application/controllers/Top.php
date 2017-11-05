@@ -20,6 +20,12 @@ class Top extends CI_Controller {
 	 */
 	 public function index()
 	 {
+		 $query = $this->db->get('USER');
+
+		 foreach ($query->result() as $row)
+		 {
+			 echo $row->NAME1;
+		 }
 		 $this->load->view('top');
 	 }
 }
