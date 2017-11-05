@@ -20,8 +20,8 @@ class Top extends CI_Controller {
 	 */
 	 public function index()
 	 {
+		 $this->load->database();
 		 $query = $this->db->get('USER');
-
 		 foreach ($query->result() as $row)
 		 {
 			 echo $row->NAME1;
