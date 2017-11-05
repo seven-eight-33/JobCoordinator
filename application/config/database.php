@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH. 'controllers/env.php';
 
 /*
 | -------------------------------------------------------------------
@@ -75,18 +76,18 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql475.db.sakura.ne.jp',
-	'username' => 'h-matsuya',
-	'password' => '82ImZdq0f5QH5CLh',
-	'database' => 'h-matsuya_job_coordinator',
-	'dbdriver' => 'mysqli',
+	'hostname' => $_SERVER['DB_HOST'],
+	'username' => $_SERVER['DB_USER'],
+	'password' => $_SERVER['DB_PASS'],
+	'database' => $_SERVER['DB_NAME'],
+	'dbdriver' => $_SERVER['DB_DRIVER'],
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
+	'char_set' => $_SERVER['DB_CHAR_SET'],
+	'dbcollat' => $_SERVER['DB_COLLAT'],
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,
