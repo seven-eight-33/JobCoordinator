@@ -9,7 +9,8 @@ class Top extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$modelUser = new User;
+		//$modelUser = new User();
+		$this->load->model('User', 'modelUser', TRUE);
 	}
 
 	public function index()
