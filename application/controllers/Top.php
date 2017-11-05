@@ -4,7 +4,7 @@ require_once APPPATH. 'models/User.php';
 
 class Top extends CI_Controller {
 
-	$modelUser = NULL;
+//	$modelUser = NULL;
 
 	public function __construct()
 	{
