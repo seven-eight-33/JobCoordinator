@@ -24,3 +24,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="js/common.js"></script>
 </head>
 <body>
+	<div id='header'>
+	</div>
