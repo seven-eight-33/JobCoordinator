@@ -64,6 +64,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		box-shadow: 0 0 8px #D0D0D0;
 	}
 	</style>
+
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/function.js"></script>
+
 </head>
 <body>
 
