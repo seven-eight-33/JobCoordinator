@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</style>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/function.js"></script>
+	<script src="js/common.js"></script>
 
 </head>
 <body>
