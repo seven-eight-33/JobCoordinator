@@ -11,7 +11,10 @@ class Top extends CI_Controller {
 
 	public function index()
 	{
+		$data['title'] = 'JobCoordinator';
 		$data['result'] = $this->modelUser->get_all_user();
+		$this->load->view('header', $data);
 		$this->load->view('top', $data);
+		$this->load->view('footer', $data);
 	}
 }
