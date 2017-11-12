@@ -14,7 +14,12 @@ class Login extends CI_Controller {
 	public function login_check()
 	{
 		$userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
-		return (!empty($userData))? true: false;
+		if(!empty($userData)){
+			return true;
+		}else{
+			$this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
+			return false;
+		}
 	}
 
 	public function index()
@@ -31,7 +36,7 @@ class Login extends CI_Controller {
 					'field' => 'login_id',
 					'label' => 'id',
 					'rules' => 'required|max_length[20]',
-					[
+					'errors' => [
 						'required' => 'id を入力してください。',
 						'max_length' => 'id または password を正しく入力してください。',
 					]
@@ -40,7 +45,7 @@ class Login extends CI_Controller {
 					'field' => 'password',
 					'label' => 'password',
 					'rules' => 'required|max_length[20]|callback_login_check',
-					[
+					'errors' => [
 						'required' => 'password を入力してください。',
 						'max_length' => 'id または password を正しく入力してください。',
 						'callback_login_check' => 'id または password を正しく入力してください。',
@@ -57,41 +62,6 @@ class Login extends CI_Controller {
 				$this->load->view('login', $data);
 				$this->load->view('footer', $data);
 			}
-
-/*
-			$data = $this->input->post();
-
-			// バリデート
-			$errMsg = '';
-			if(empty($this->input->post('login_id'))){
-				$errMsg = 'id を入力してください。';
-			}elseif(mb_strlen($this->input->post('login_id')) > 20){
-				$errMsg = 'id または password を正しく入力してください。';
-			}
-
-			if(empty($errMsg) && empty($this->input->post('password'))){
-				$errMsg = 'password を入力してください。';
-			}elseif(empty($errMsg) && mb_strlen($this->input->post('password')) > 20){
-				$errMsg = 'id または password を正しく入力してください。';
-			}
-
-			// DBチェック
-			if(empty($errMsg)){
-				$userData = $this->modelUser->get_once_user($data['login_id'], $data['password']);
-				if(!empty($userData)){
-					// 成功 → マイページへ
-					redirect('mypage');
-				}else{
-					$errMsg = 'id または password を正しく入力してください。';
-				}
-			}
-
-			$data['title'] = 'JobCoordinator-Login';
-			$data['errMsg'] = '<p class="error">'. $errMsg. '</p>';
-			$this->load->view('header', $data);
-			$this->load->view('login', $data);
-			$this->load->view('footer', $data);
-*/
 		}
 	}
 }
