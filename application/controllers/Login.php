@@ -6,10 +6,18 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-//		$this->load->helper('url', 'form');
-//		$this->load->library('form_validation');
+		$this->load->helper('url', 'form');
+		$this->load->library('form_validation');
 		$this->load->model('User', 'modelUser', TRUE);
+
+		$obj = [
+			'form_validation' => $this->form_validation,
+			'modelUser' => $this->modelUser,
+			'input' => $this->input,
+		];
+
 		$this->load->library('login_lib');
+		$this->login_lib->lib_start($obj);
 	}
 /*
 	public function login_check()
