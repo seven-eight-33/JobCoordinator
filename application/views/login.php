@@ -5,14 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<h1>ログイン</h1>
 
 	<div id="body">
-		<form method="post" action="http://h-matsuya.sakura.ne.jp/JobCoordinator/login">
+		<?php echo form_open('login'); ?>
+<!--		<form method="post" action="http://h-matsuya.sakura.ne.jp/JobCoordinator/login"> -->
 			<dl class="cf">
 				<dt>id</dt>
-				<dd><input name="login_id" type="text" maxlength="20" value="<?php $login_id ?>" /></dd>
+				<dd><?php echo form_input("login_id", $this->input->post("login_id")); ?></dd>
 				<dt>password</dt>
-				<dd><input name="password" type="password" maxlength="20" value="<?php $password ?>" /></dd>
+				<dd><?php echo form_password("password", $this->input->post("password")); ?></dd>
 			</dl>
-			<?php if(isset($errMsg)){ echo $errMsg; }?>
+			<?php echo validation_errors(); ?>
+<!--			<?php //if(isset($errMsg)){ echo $errMsg; } ?> -->
 			<div class="txtC">
 				<button type='submit' name='action' value='1'>login</button>
 			</div>

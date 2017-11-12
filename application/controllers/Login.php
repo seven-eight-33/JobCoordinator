@@ -7,7 +7,14 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('url', 'form');
+		$this->load->library('form_validation');
 		$this->load->model('User', 'modelUser', TRUE);
+	}
+
+	public function login_check()
+	{
+		$userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
+		return (!empty($userData))? true: false;
 	}
 
 	public function index()
@@ -19,7 +26,40 @@ class Login extends CI_Controller {
 			$this->load->view('login', $data);
 			$this->load->view('footer', $data);
 		}else{
+			$config = [
+				[
+					'field' => 'login_id',
+					'label' => 'id',
+					'rules' => 'required|max_length[20]',
+					[
+						'required' => 'id を入力してください。',
+						'max_length' => 'id または password を正しく入力してください。',
+					]
+				],
+				[
+					'field' => 'password',
+					'label' => 'password',
+					'rules' => 'required|max_length[20]|callback_login_check',
+					[
+						'required' => 'password を入力してください。',
+						'max_length' => 'id または password を正しく入力してください。',
+						'callback_login_check' => 'id または password を正しく入力してください。',
+					]
+				]
+			];
+			$this->form_validation->set_rules($config);
 
+			if($this->form_validation->run()){	//バリデーションエラーがなかった場合の処理
+				redirect('mypage');
+			}else{							//バリデーションエラーがあった場合の処理
+				$data['title'] = 'JobCoordinator-Login';
+				$data['errMsg'] = '<p class="error">'. $errMsg. '</p>';
+				$this->load->view('header', $data);
+				$this->load->view('login', $data);
+				$this->load->view('footer', $data);
+			}
+
+/*
 			$data = $this->input->post();
 
 			// バリデート
@@ -52,6 +92,7 @@ class Login extends CI_Controller {
 			$this->load->view('header', $data);
 			$this->load->view('login', $data);
 			$this->load->view('footer', $data);
+*/
 		}
 	}
 }
