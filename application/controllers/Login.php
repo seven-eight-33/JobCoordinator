@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('url', 'form');
 		$this->load->model('User', 'modelUser', TRUE);
 	}
 
@@ -40,7 +41,7 @@ class Login extends CI_Controller {
 				$userData = $this->modelUser->get_once_user($data['login_id'], $data['password']);
 				if(!empty($userData)){
 					// 成功 → マイページへ
-					redirect('/mypage/');
+					redirect('mypage');
 				}else{
 					$errMsg = 'id または password を正しく入力してください。';
 				}
