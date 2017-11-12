@@ -9,8 +9,9 @@ class Login extends CI_Controller {
 		$this->load->helper('url', 'form');
 		$this->load->library('form_validation');
 		$this->load->model('User', 'modelUser', TRUE);
+		$this->load->library('Login_lib');
 	}
-
+/*
 	public function login_check()
 	{
 		$userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
@@ -21,7 +22,7 @@ class Login extends CI_Controller {
 			return false;
 		}
 	}
-
+*/
 	public function index()
 	{
 		if(empty($this->input->post('action'))){
@@ -31,6 +32,16 @@ class Login extends CI_Controller {
 			$this->load->view('login', $data);
 			$this->load->view('footer', $data);
 		}else{
+
+			if($this->Login_lib->login_validation()){
+				redirect('mypage');
+			}else{
+				$data['title'] = 'JobCoordinator-Login';
+				$this->load->view('header', $data);
+				$this->load->view('login', $data);
+				$this->load->view('footer', $data);
+			}
+/*
 			$config = [
 				[
 					'field' => 'login_id',
@@ -62,6 +73,7 @@ class Login extends CI_Controller {
 				$this->load->view('login', $data);
 				$this->load->view('footer', $data);
 			}
+*/
 		}
 	}
 }
