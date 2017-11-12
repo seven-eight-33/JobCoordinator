@@ -14,6 +14,17 @@ class Login_lib {
         $this->input = $obj['input'];
     }
 
+    public function login_check()
+    {
+        $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
+        if(!empty($userData)){
+            return true;
+        }else{
+            $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
+            return false;
+        }
+    }
+
     public function login_validation()
     {
         $config = [
@@ -40,14 +51,4 @@ class Login_lib {
         return $this->form_validation->run();
     }
 
-    public function login_check()
-    {
-        $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
-        if(!empty($userData)){
-            return true;
-        }else{
-            $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
-            return false;
-        }
-    }
 }
