@@ -8,11 +8,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<form method="post" action="http://h-matsuya.sakura.ne.jp/JobCoordinator/login">
 			<dl class="cf">
 				<dt>id</dt>
-				<dd><input name="login_id" type="text" maxlength="20" value="<?php $results->login_id ?>" /></dd>
+				<dd><input name="login_id" type="text" maxlength="20" value="<?php $login_id ?>" /></dd>
 				<dt>password</dt>
-				<dd><input name="password" type="password" maxlength="20" value="<?php $results->password ?>" /></dd>
+				<dd><input name="password" type="password" maxlength="20" value="<?php $password ?>" /></dd>
 			</dl>
-			<?php echo $results->errMsg; ?>
+			<?php echo $errMsg; ?>
 			<div class="txtC">
 				<button type='submit' name='action' value='1'>login</button>
 			</div>
