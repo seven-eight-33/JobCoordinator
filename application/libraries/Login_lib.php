@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_lib {
 
+    public function __construct()
+	{
+        $this->load->helper('url', 'form');
+		$this->load->library('form_validation');
+        $this->load->model('User', 'modelUser', TRUE);
+    }
+
     public function login_check()
     {
         $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
