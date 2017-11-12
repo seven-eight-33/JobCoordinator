@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<dt>password</dt>
 				<dd><input name="password" type="password" maxlength="20" value="<?php $password ?>" /></dd>
 			</dl>
-			<?php echo $errMsg; ?>
+			<?php if(isset($errMsg)){ echo $errMsg; }?>
 			<div class="txtC">
 				<button type='submit' name='action' value='1'>login</button>
 			</div>
