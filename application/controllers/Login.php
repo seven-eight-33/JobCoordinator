@@ -53,7 +53,6 @@ class Login extends CI_Controller {
 				redirect('mypage');
 			}else{							//バリデーションエラーがあった場合の処理
 				$data['title'] = 'JobCoordinator-Login';
-				$data['errMsg'] = '<p class="error">'. $errMsg. '</p>';
 				$this->load->view('header', $data);
 				$this->load->view('login', $data);
 				$this->load->view('footer', $data);
