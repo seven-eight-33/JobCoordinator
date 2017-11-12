@@ -5,12 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<h1>ログイン</h1>
 
 	<div id="body">
-		<form method="post" action="login.php">
+		<form method="post" action="http://h-matsuya.sakura.ne.jp/JobCoordinator/login">
 			<dl class="cf">
 				<dt>id</dt>
-				<dd><input name="LOGIN_ID" type="text" maxlength="32" value="$LOGIN_ID" /></dd>
+				<dd><input name="login_id" type="text" maxlength="20" value="<?php $results->login_id ?>" /></dd>
 				<dt>password</dt>
-				<dd><input name="PASSWORD" type="password" maxlength="32" value="$PASSWORD" /></dd>
+				<dd><input name="password" type="password" maxlength="20" value="<?php $results->password ?>" /></dd>
 			</dl>
 			<?php echo $results->errMsg; ?>
 			<div class="txtC">
