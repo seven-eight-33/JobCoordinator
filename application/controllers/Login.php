@@ -17,7 +17,7 @@ class Login extends CI_Controller {
 		];
 
 		$this->load->library('login_lib');
-		$this->login_lib->lib_start($obj);
+		$this->login_lib->lib_init($obj);
 	}
 /*
 	public function login_check()

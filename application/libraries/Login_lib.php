@@ -7,7 +7,7 @@ class Login_lib {
     public $modelUser = NULL;
     public $input = NULL;
 
-    public function lib_start($obj)
+    public function lib_init($obj)
     {
         $this->form_validation = $obj['form_validation'];
         $this->modelUser = $obj['modelUser'];
@@ -33,7 +33,6 @@ class Login_lib {
                 'errors' => [
                     'required' => 'password を入力してください。',
                     'max_length' => 'id または password を正しく入力してください。',
-                    'callback_login_check' => 'id または password を正しく入力してください。',
                 ]
             ]
         ];
