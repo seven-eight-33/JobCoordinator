@@ -19,9 +19,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta property="og:title" content="">
 	<meta property="og:description" content="">
 
-	<link href="css/common.css" rel="stylesheet" type="text/css">
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/common.js"></script>
+	<link href="/JobCoordinator/css/common.css" rel="stylesheet" type="text/css">
+	<script src="/JobCoordinator/js/jquery-3.2.1.min.js"></script>
+	<script src="/JobCoordinator/js/common.js"></script>
 </head>
 <body>
 	<div id='header'>
