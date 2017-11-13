@@ -8,7 +8,7 @@ class Login_lib {
 
     public function __construct()
     {
-        $CI =& get_instance();
+        $this->$CI =& get_instance();
 
         $this->CI->load->helper('url', 'form');
         $this->CI->load->library('form_validation');
