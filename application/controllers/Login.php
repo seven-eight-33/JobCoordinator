@@ -55,7 +55,7 @@ class Login extends CI_Controller {
             $data['title'] = 'JobCoordinator-Login';
             $data['result'] = $this->modelUser->get_all_user();
         }else{
-            if($this->login_lib->login_validation($this->input->post())){
+            if($this->login_validation()){
                 redirect('mypage');
             }else{
                 $data['title'] = 'JobCoordinator-Login';
