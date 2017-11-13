@@ -3,30 +3,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_lib {
 
-    public $form_validation = NULL;
-    public $modelUser = NULL;
-    public $input = NULL;
+    protected $CI;
+    public $input;
 
-    public function lib_init($obj)
+    public function __construct()
     {
-        $this->form_validation = $obj['form_validation'];
-        $this->modelUser = $obj['modelUser'];
-        $this->input = $obj['input'];
+        $CI =& get_instance();
+
+        $this->CI->load->helper('url', 'form');
+        $this->CI->load->library('form_validation');
+        $this->CI->load->model('User', 'modelUser', TRUE);
     }
 
     public function login_check()
     {
-        $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
+        $userData = $this->CI->modelUser->get_once_user($this->input("login_id"), $this->input("password"));
         if(!empty($userData)){
             return true;
         }else{
-            $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
+            $this->CI->form_validation->set_message("login_check", "id または password を正しく入力してください。");
             return false;
         }
     }
 
-    public function login_validation()
+    public function login_validation($params)
     {
+        $this->input = $params;
+
         $config = [
             [
                 'field' => 'login_id',
@@ -47,8 +50,8 @@ class Login_lib {
                 ]
             ]
         ];
-        $this->form_validation->set_rules($config);
-        return $this->form_validation->run();
+        $this->CI->form_validation->set_rules($config);
+        return $this->CI->form_validation->run();
     }
 
 }

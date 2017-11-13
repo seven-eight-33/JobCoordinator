@@ -9,15 +9,7 @@ class Login extends CI_Controller {
 		$this->load->helper('url', 'form');
 		$this->load->library('form_validation');
 		$this->load->model('User', 'modelUser', TRUE);
-
-		$obj = [
-			'form_validation' => $this->form_validation,
-			'modelUser' => $this->modelUser,
-			'input' => $this->input,
-		];
-
 		$this->load->library('login_lib');
-		$this->login_lib->lib_init($obj);
 	}
 /*
 	public function login_check()
@@ -41,7 +33,7 @@ class Login extends CI_Controller {
 			$this->load->view('footer', $data);
 		}else{
 
-			if($this->login_lib->login_validation()){
+			if($this->login_lib->login_validation($this->input->post())){
 				redirect('mypage');
 			}else{
 				$data['title'] = 'JobCoordinator-Login';
