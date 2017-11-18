@@ -1,4 +1,5 @@
 RewriteEngine on
-
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond $1 !^(index\.php|.+\.css$|.+\.js$|.+\.png$|.+\.jpg$|robots\.txt)
 RewriteRule ^(.*)$ /JobCoordinator/index.php?$1 [L]

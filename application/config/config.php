@@ -35,7 +35,7 @@ $config['base_url'] = 'http://h-matsuya.sakura.ne.jp/JobCoordinator/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
