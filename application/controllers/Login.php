@@ -36,7 +36,7 @@ class Login extends CI_Controller {
 
     public function _mainprocess()
     {
-        switch($this->$viewType){
+        switch($this->viewType){
             case self::LOGIN_START:
                 $this->viewData['title'] = 'JobCoordinator-Login';
                 $this->viewData['result'] = $this->modelUser->get_all_user();
@@ -62,7 +62,7 @@ class Login extends CI_Controller {
 
     public function index()
     {
-        $this->$viewType = $this->_preprocess();
+        $this->viewType = $this->_preprocess();
         $this->_mainprocess();
         $this->_main_view();
 /*
