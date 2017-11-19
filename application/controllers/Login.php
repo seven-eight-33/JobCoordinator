@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    const LOGIN_START = 1;
-    const LOGIN_SUCCESS = 2;
-    const LOGIN_ERROR = 3;
+    const LOGIN_START = 1;		// ログイン画面出力
+    const LOGIN_SUCCESS = 2;	// ログイン処理成功 → マイページTOPへ
+    const LOGIN_ERROR = 3;		// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
 
     public $viewType = 0;
     public $viewData = NULL;
@@ -65,25 +65,9 @@ class Login extends CI_Controller {
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
         $this->_main_view();
-/*
-        if(empty($this->input->post('action'))){
-            $data['title'] = 'JobCoordinator-Login';
-            $data['result'] = $this->modelUser->get_all_user();
-        }else{
-            if($this->login_validation()){
-                redirect('mypage');
-            }else{
-                $data['title'] = 'JobCoordinator-Login';
-            }
-        }
-
-        $this->load->view('header', $data);
-        $this->load->view('login', $data);
-        $this->load->view('footer', $data);
-*/
     }
 
-/********************* ↓ サブファンクション ↓ *********************/
+/********************* ↓ sub function ↓ *********************/
     public function login_check()
     {
         $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
