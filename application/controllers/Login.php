@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    public function __construct()
+    protected function __construct()
     {
         parent::__construct();
         $this->load->helper('url', 'form');
@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 //        $this->load->library('login_lib');
     }
 
-    public function login_check()
+    protected function login_check()
     {
         $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
         if(!empty($userData)){
@@ -23,7 +23,7 @@ class Login extends CI_Controller {
         }
     }
 
-    public function login_validation()
+    protected function login_validation()
     {
         $config = [
             [
@@ -49,7 +49,7 @@ class Login extends CI_Controller {
         return $this->form_validation->run();
     }
 
-    public function index()
+    protected function index()
     {
         if(empty($this->input->post('action'))){
             $data['title'] = 'JobCoordinator-Login';
