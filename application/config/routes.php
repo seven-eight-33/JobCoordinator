@@ -57,7 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'Login/index';
 
 // Mypage
-$route['Mypage'] = 'Mypage/index';
+$route['mypage'] = 'Mypage/index';
 
 // Entry
-$route['Entry/Input'] = 'Entry/Input/index';
+$route['entry/input'] = 'Entry/Input/index';
