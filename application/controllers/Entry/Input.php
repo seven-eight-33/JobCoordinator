@@ -13,7 +13,7 @@ class Input extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-//        $this->load->model('User', 'modelUser', TRUE);
+        $this->load->model('User', 'modelUser', TRUE);
 //        $this->load->library('login_lib');
     }
 
