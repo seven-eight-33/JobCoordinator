@@ -13,9 +13,10 @@ class Input extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-//        $this->load->helper('url', 'form');
-//        $this->load->library('form_validation');
-//        $this->load->model('User', 'modelUser', TRUE);
+        $this->load->helper('url', 'form');
+        $this->load->library('form_validation');
+        $this->load->library('session');
+        $this->load->model('User', 'modelUser', TRUE);
 //        $this->load->library('login_lib');
     }
 
@@ -42,7 +43,7 @@ class Input extends CI_Controller {
                 break;
             case self::INPUT_SUCCESS:
                 // session 操作
-                $this->session->set_userdata($data);
+                $this->session->set_userdata($this->input->post());
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:
