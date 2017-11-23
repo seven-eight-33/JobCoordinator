@@ -58,3 +58,6 @@ $route['login'] = 'Login/index';
 
 // Mypage
 $route['Mypage'] = 'Mypage/index';
+
+// Entry
+$route['Entry/Input'] = 'Entry/Input/index';
