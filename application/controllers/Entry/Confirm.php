@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Input extends CI_Controller {
+class Confirm extends CI_Controller {
 
-    const INPUT_START = 1;		// 会員登録入力画面出力
-    const INPUT_SUCCESS = 2;	// 入力チェック成功 → 会員登録確認画面へ
+    const INPUT_START = 1;		// 会員登録確認画面出力
+    const INPUT_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
     const INPUT_ERROR = 3;		// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
 
     public $viewType = 0;
@@ -13,9 +13,9 @@ class Input extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-//        $this->load->helper('url', 'form');
-//        $this->load->library('form_validation');
-//        $this->load->model('User', 'modelUser', TRUE);
+        $this->load->helper('url', 'form');
+        $this->load->library('form_validation');
+        $this->load->model('User', 'modelUser', TRUE);
 //        $this->load->library('login_lib');
     }
 
@@ -42,7 +42,6 @@ class Input extends CI_Controller {
                 break;
             case self::INPUT_SUCCESS:
                 // session 操作
-                $this->session->set_userdata($data);
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:

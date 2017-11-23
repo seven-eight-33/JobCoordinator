@@ -61,3 +61,5 @@ $route['mypage'] = 'Mypage/index';
 
 // Entry
 $route['entry/input'] = 'Entry/Input/index';
+$route['entry/confirm'] = 'Entry/Confirm/index';
+$route['entry/complete'] = 'Entry/Complete/index';

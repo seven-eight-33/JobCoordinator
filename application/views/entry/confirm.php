@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div id="container">
-    <h1>会員登録</h1>
+    <h1>会員登録 - 入力確認</h1>
 
     <div id="body">
         <?php echo form_open('entry/input'); ?>
