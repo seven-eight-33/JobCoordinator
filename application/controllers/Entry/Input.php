@@ -14,12 +14,13 @@ class Input extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
+        $this->config->load('my_config');
 //        $this->load->library('login_lib');
     }
 
     public function _preprocess()
     {
-        var_dump($this->config->item());
+        var_dump($this->config->item('pref_list'));
         exit;
 
 
