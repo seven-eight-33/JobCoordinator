@@ -22,9 +22,6 @@ class Complete extends CI_Controller {
 
     public function _preprocess()
     {
-        var_dump($this->session->userdata());
-        exit;
-
         $res = 0;
         if(!empty($this->session->userdata())){
             $res = self::COMPLETE_START;
