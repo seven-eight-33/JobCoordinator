@@ -19,6 +19,10 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
+        var_dump($this->config->item('pref_list', 'my_config'));
+        exit;
+        
+
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
