@@ -33,7 +33,7 @@ class User extends CI_Model
             $query = $this->db->get('USER');
             $res = $query->result();
 
-            var_dump($res);
+            var_dump($res[0]->ID);
             exit;
 
             return $res->ID;
