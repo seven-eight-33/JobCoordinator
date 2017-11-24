@@ -19,7 +19,7 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
-        var_dump($this->config->item('pref_list'));
+        var_dump($this->config->item());
         exit;
 
 
