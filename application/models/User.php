@@ -32,11 +32,7 @@ class User extends CI_Model
             $this->db->select_max('ID');
             $query = $this->db->get('USER');
             $res = $query->result();
-
-            var_dump($res[0]->ID);
-            exit;
-
-            return $res->ID;
+            return $res[0]->ID;
         }
 
         public function insert_user_data($data)
