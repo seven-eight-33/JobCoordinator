@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <dt>住所</dt>
                 <dt>都道府県</dt>
                 <dd>
-                    <?php echo form_dropdown("pref", $pref_list, $pref); ?>
+                    <?php echo form_dropdown("pref", $pref_list, set_value("pref")); ?>
                     <?php echo form_error('pref', '<p class="error">', '</p>'); ?>
                 </dd>
                 <dt>市区町村</dt>
