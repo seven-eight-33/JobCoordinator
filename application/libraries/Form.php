@@ -1,105 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Input extends CI_Controller {
+class Form {
 
-    const INPUT_START   = 1;	// 会員登録入力画面出力
-    const INPUT_SUCCESS = 2;	// 入力チェック成功 → 会員登録確認画面へ
-    const INPUT_ERROR   = 3;	// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
-
-    public $viewType = 0;
-    public $viewData = NULL;
+    protected $CI;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->load->model('User', 'modelUser', TRUE);
-        $this->config->load('my_config');
-        $this->load->library('Form');
+        $this->CI =& get_instance();
     }
 
-    public function _preprocess()
-    {
-        $res = 0;
-        if(empty($this->input->post('action'))){
-            $res = self::INPUT_START;
-        }else{
-            if($this->Form->_input_validation()){
-                $res = self::INPUT_SUCCESS;
-            }else{
-                $res = self::INPUT_ERROR;
-            }
-        }
-        return $res;
-    }
-
-    public function _mainprocess()
-    {
-        switch($this->viewType){
-            case self::INPUT_START:     // 初期表示
-                $this->viewData['title'] = 'JobCoordinator-Entry';
-                $this->viewData['pref_list'] = $this->config->item('pref_list');
-                break;
-            case self::INPUT_SUCCESS:   // 確認画面へ
-                // session 登録
-                $userInput = array_merge($this->input->post(), $this->_make_pass($this->input->post('password')));
-                $this->session->set_userdata($userInput);
-                redirect('entry/confirm');
-                break;
-            case self::INPUT_ERROR:     // 入力エラー
-                $this->viewData['title'] = 'JobCoordinator-Entry';
-                $this->viewData['pref_list'] = $this->config->item('pref_list');
-                break;
-            default:
-                break;
-        }
-    }
-
-    public function _main_view()
-    {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('entry/input', $this->viewData);
-        $this->load->view('footer', $this->viewData);
-    }
-
-    public function index()
-    {
-        $this->viewType = $this->_preprocess();
-        $this->_mainprocess();
-        $this->_main_view();
-    }
-
-/********************* ↓ sub function ↓ *********************/
-    // パスワードマスク
-    public function _make_pass($target)
-    {
-        $result = array();
-        if(!empty($target)){
-            // パスワードマスク
-            $result['mask_pass'] = mb_substr($target, 0, 1);
-            for($i = 0; $i < mb_strlen($target) - 1; $i++){
-                $result['mask_pass'] .= '*';
-            }
-            // salt生成
-            $result['salt'] = bin2hex(random_bytes(32));
-            // stretch生成
-            $result['stretch'] = random_int(1, 99);
-            // パスワードハッシュ化
-            $result['hash_pass'] = hash_hmac('sha512', $result['salt']. $target, false);
-            for($i = 0; $i < $result['stretch']; $i++){
-                $result['hash_pass'] = hash_hmac('sha512', $result['hash_pass'], false);
-            }
-        }
-        return $result;
-    }
-/*
     // 半角英数記号チェック
     public function _alpha_numeric_symbol()
     {
-        if(preg_match("/^[!-~]+$/", $this->input->post("password"))){
+        if(preg_match("/^[!-~]+$/", $this->CI->input->post("password"))){
             return true;
         }else{
-            $this->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
+            $this->CI->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
             return false;
         }
     }
@@ -272,8 +189,8 @@ class Input extends CI_Controller {
                 ]
             ]
         ];
-        $this->form_validation->set_rules($config);
-        return $this->form_validation->run();
+        $this->CI->form_validation->set_rules($config);
+        return $this->CI->form_validation->run();
     }
-*/
+
 }
