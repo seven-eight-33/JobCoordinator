@@ -24,7 +24,7 @@ class Input extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
         }else{
-            if($this->Form->_input_validation()){
+            if($this->form->_input_validation()){
                 $res = self::INPUT_SUCCESS;
             }else{
                 $res = self::INPUT_ERROR;
