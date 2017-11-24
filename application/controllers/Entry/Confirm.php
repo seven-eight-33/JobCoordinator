@@ -38,10 +38,10 @@ class Confirm extends CI_Controller {
     {
         switch($this->viewType){
             case self::INPUT_START:
+                $this->viewData = $this->session->userdata();
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 $pref_list = $this->config->item('pref_list');
                 $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
-                $this->viewData = $this->session->userdata();
                 var_dump($this->viewData);
                 exit;
                 break;
