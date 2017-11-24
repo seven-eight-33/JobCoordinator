@@ -32,6 +32,10 @@ class User extends CI_Model
             $this->db->select_max('ID');
             $query = $this->db->get('USER');
             $res = $query->result();
+
+            var_dump($res);
+            exit;
+
             return $res->ID;
         }
 
