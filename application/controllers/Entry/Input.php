@@ -20,6 +20,8 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
+        var_dump(bin2hex(random_bytes(20)));
+        exit;
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
@@ -69,6 +71,22 @@ class Input extends CI_Controller {
     }
 
 /********************* ↓ sub function ↓ *********************/
+    // パスワードマスク
+    public function _make_pass($target)
+    {
+        $result = array();
+        if(!empty($target)){
+            // パスワードマスク
+            $result['pass_mask'] = mb_substr($target, 0, 1);
+            for($i = 0; $i < mb_strlen($target) - 1; $i++){
+                $result['pass_mask'] .= '*';
+            }
+            // パスワードハッシュ化
+
+        }
+        return $result;
+    }
+
     // 半角英数記号チェック
     public function _alpha_numeric_symbol()
     {
