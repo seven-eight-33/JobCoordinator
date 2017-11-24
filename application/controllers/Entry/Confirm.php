@@ -24,8 +24,9 @@ class Confirm extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::CONFIRM_START;
         }else{
-            $this->input->post($this->session->userdata());
-            if($this->_input_validation()){
+//            $this->input->post($this->session->userdata());
+//            if($this->_input_validation()){
+            if(!empty($this->session->userdata())){
                 $res = self::CONFIRM_SUCCESS;
             }else{
                 $res = self::CONFIRM_ERROR;
@@ -48,6 +49,7 @@ class Confirm extends CI_Controller {
                 break;
             case self::CONFIRM_SUCCESS:
                 // session 操作
+//                $this->session->set_userdata($this->session->userdata());
                 redirect('entry/complete');
                 break;
             case self::CONFIRM_ERROR:
