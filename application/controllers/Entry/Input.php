@@ -19,9 +19,6 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
-        var_dump($this->input->post());
-        exit;
-
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;

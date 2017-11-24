@@ -13,8 +13,6 @@ class Confirm extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('url', 'form');
-        $this->load->library('form_validation');
         $this->load->model('User', 'modelUser', TRUE);
 //        $this->load->library('login_lib');
     }
@@ -25,6 +23,7 @@ class Confirm extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
         }else{
+            $this->input->post($this->session->userdata());
             if($this->_input_validation()){
                 $res = self::INPUT_SUCCESS;
             }else{
@@ -39,12 +38,14 @@ class Confirm extends CI_Controller {
         switch($this->viewType){
             case self::INPUT_START:
                 $this->viewData['title'] = 'JobCoordinator-Entry';
+                $this->viewData = $this->session->userdata();
                 break;
             case self::INPUT_SUCCESS:
                 // session 操作
-                redirect('entry/confirm');
+                redirect('entry/complete');
                 break;
             case self::INPUT_ERROR:
+                // システムエラー
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             default:
@@ -55,7 +56,7 @@ class Confirm extends CI_Controller {
     public function _main_view()
     {
         $this->load->view('header', $this->viewData);
-        $this->load->view('entry/input', $this->viewData);
+        $this->load->view('entry/confirm', $this->viewData);
         $this->load->view('footer', $this->viewData);
     }
 
