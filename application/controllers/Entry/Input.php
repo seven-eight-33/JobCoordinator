@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Input extends CI_Controller {
 
-    const INPUT_START = 1;		// 会員登録入力画面出力
+    const INPUT_START   = 1;	// 会員登録入力画面出力
     const INPUT_SUCCESS = 2;	// 入力チェック成功 → 会員登録確認画面へ
-    const INPUT_ERROR = 3;		// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
+    const INPUT_ERROR   = 3;	// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
 
     public $viewType = 0;
     public $viewData = NULL;

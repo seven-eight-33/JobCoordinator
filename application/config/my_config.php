@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$config['reg_user_to_admin_mail'] = 'reon1022@gmail.com';
+$config['reg_user_from_admin_mail'] = 'reon1022@gmail.com';
+$config['reg_user_from_admin_name'] = 'JobCoordinator';
+$config['reg_user_subject_user_temp'] = 'JobCoordinatorの仮登録が完了しました。';
+$config['reg_user_subject_user'] = 'JobCoordinatorの本登録が完了しました。';
+$config['reg_user_subject_admin'] = 'JobCoordinator会員登録通知';
+
 $config['sex_list'] = array(
     1 => '男性',
     2 => '女性',

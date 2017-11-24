@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Confirm extends CI_Controller {
 
-    const INPUT_START = 1;		// 会員登録確認画面出力
-    const INPUT_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
-    const INPUT_ERROR = 3;		// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
+    const CONFIRM_START   = 1;	// 会員登録確認画面出力
+    const CONFIRM_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
+    const CONFIRM_ERROR   = 3;	// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
 
     public $viewType = 0;
     public $viewData = NULL;
@@ -22,13 +22,13 @@ class Confirm extends CI_Controller {
     {
         $res = 0;
         if(empty($this->input->post('action'))){
-            $res = self::INPUT_START;
+            $res = self::CONFIRM_START;
         }else{
             $this->input->post($this->session->userdata());
             if($this->_input_validation()){
-                $res = self::INPUT_SUCCESS;
+                $res = self::CONFIRM_SUCCESS;
             }else{
-                $res = self::INPUT_ERROR;
+                $res = self::CONFIRM_ERROR;
             }
         }
         return $res;
@@ -37,7 +37,7 @@ class Confirm extends CI_Controller {
     public function _mainprocess()
     {
         switch($this->viewType){
-            case self::INPUT_START:
+            case self::CONFIRM_START:
                 $this->viewData = $this->session->userdata();
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 $sex_list = $this->config->item('sex_list');
@@ -46,11 +46,11 @@ class Confirm extends CI_Controller {
                 $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $this->viewData['password_val'] = $this->session->userdata('mask_pass');
                 break;
-            case self::INPUT_SUCCESS:
+            case self::CONFIRM_SUCCESS:
                 // session 操作
                 redirect('entry/complete');
                 break;
-            case self::INPUT_ERROR:
+            case self::CONFIRM_ERROR:
                 // システムエラー
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
