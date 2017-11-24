@@ -134,7 +134,7 @@ class Input extends CI_Controller {
             [
                 'field'  => 'sex',
                 'label'  => 'sex',
-                'rules'  => 'required|is_natural_no_zero|less_than[2]',
+                'rules'  => 'required|is_natural_no_zero|less_than[3]',
                 'errors' => [
                     'required'           => '性別 を入力してください。',
                     'is_natural_no_zero' => '性別 を正しく入力してください。',
@@ -164,7 +164,7 @@ class Input extends CI_Controller {
             [
                 'field'  => 'pref',
                 'label'  => 'pref',
-                'rules'  => 'required|is_natural_no_zero|less_than[47]',
+                'rules'  => 'required|is_natural_no_zero|less_than[48]',
                 'errors' => [
                     'required'           => '都道府県 を選択してください。',
                     'is_natural_no_zero' => '都道府県 を選択してください。',
