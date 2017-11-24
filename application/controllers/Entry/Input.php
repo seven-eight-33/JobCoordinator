@@ -20,10 +20,6 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
-        var_dump($this->config->item('pref_list'));
-        exit;
-
-
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
@@ -42,6 +38,7 @@ class Input extends CI_Controller {
         switch($this->viewType){
             case self::INPUT_START:     // 初期表示
                 $this->viewData['title'] = 'JobCoordinator-Entry';
+                $this->viewData['pref_list'] = $this->config->item('pref_list');
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
@@ -50,6 +47,7 @@ class Input extends CI_Controller {
                 break;
             case self::INPUT_ERROR:     // 入力エラー
                 $this->viewData['title'] = 'JobCoordinator-Entry';
+                $this->viewData['pref_list'] = $this->config->item('pref_list');
                 break;
             default:
                 break;
