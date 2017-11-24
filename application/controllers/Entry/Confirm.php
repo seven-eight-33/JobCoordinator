@@ -44,6 +44,7 @@ class Confirm extends CI_Controller {
                 $this->viewData['sex_val'] = $sex_list[$this->session->userdata('sex')];
                 $pref_list = $this->config->item('pref_list');
                 $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
+                $this->viewData['password_val'] = $this->session->userdata('mask_pass');
                 break;
             case self::INPUT_SUCCESS:
                 // session 操作

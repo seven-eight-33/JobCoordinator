@@ -20,8 +20,6 @@ class Input extends CI_Controller {
 
     public function _preprocess()
     {
-        var_dump(bin2hex(random_bytes(20)));
-        exit;
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
@@ -44,7 +42,8 @@ class Input extends CI_Controller {
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
-                $this->session->set_userdata($this->input->post());
+                $userInput = array_merge($this->input->post(), $this->_make_pass($this->input->post('password')));
+                $this->session->set_userdata($userInput);
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:     // 入力エラー
@@ -77,12 +76,19 @@ class Input extends CI_Controller {
         $result = array();
         if(!empty($target)){
             // パスワードマスク
-            $result['pass_mask'] = mb_substr($target, 0, 1);
+            $result['mask_pass'] = mb_substr($target, 0, 1);
             for($i = 0; $i < mb_strlen($target) - 1; $i++){
-                $result['pass_mask'] .= '*';
+                $result['mask_pass'] .= '*';
             }
+            // salt生成
+            $result['salt'] = bin2hex(random_bytes(32));
+            // stretch生成
+            $result['stretch'] = random_int(1, 99);
             // パスワードハッシュ化
-
+            $result['hash_pass'] = hash_hmac('sha512', $result['salt']. $target, false);
+            for($i = 0; $i < $result['stretch']; $i++){
+                $result['hash_pass'] = hash_hmac('sha512', $result['hash_pass'], false);
+            }
         }
         return $result;
     }
