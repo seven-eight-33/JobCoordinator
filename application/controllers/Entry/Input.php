@@ -162,6 +162,16 @@ class Input extends CI_Controller {
                 ]
             ],
             [
+                'field'  => 'pref',
+                'label'  => 'pref',
+                'rules'  => 'required|is_natural_no_zero|less_than[47]',
+                'errors' => [
+                    'required'           => '都道府県 を選択してください。',
+                    'is_natural_no_zero' => '都道府県 を選択してください。',
+                    'less_than'          => '都道府県 を正しく入力してください。',
+                ]
+            ],
+            [
                 'field'  => 'address1',
                 'label'  => 'address1',
                 'rules'  => 'required|max_length[255]',

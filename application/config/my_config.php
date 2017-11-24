@@ -7,6 +7,7 @@ $config['sex_list'] = array(
 );
 
 $config['pref_list'] = array(
+     0 => '選択してください',
      1 => '北海道',
      2 => '青森県',
      3 => '岩手県',

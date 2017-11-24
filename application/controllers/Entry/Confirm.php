@@ -14,6 +14,7 @@ class Confirm extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
+        $this->config->load('my_config');
 //        $this->load->library('login_lib');
     }
 
@@ -38,6 +39,8 @@ class Confirm extends CI_Controller {
         switch($this->viewType){
             case self::INPUT_START:
                 $this->viewData['title'] = 'JobCoordinator-Entry';
+                $pref_list = $this->config->item('pref_list');
+                $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $this->viewData = $this->session->userdata();
                 break;
             case self::INPUT_SUCCESS:
