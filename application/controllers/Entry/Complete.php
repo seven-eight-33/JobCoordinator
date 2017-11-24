@@ -38,6 +38,13 @@ class Complete extends CI_Controller {
                 // DB に仮登録
                 $inputData = $this->session->userdata();
                 $inputData['unique_key'] = $this->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+
+
+var_dump($inputData);
+exit;
+
+
+
                 $resInsert = $this->modelUser->insert_user_data($inputData);
                 if(empty($resInsert) || !$resInsert['res']) break;
 
