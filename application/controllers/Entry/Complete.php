@@ -40,7 +40,7 @@ class Complete extends CI_Controller {
                 $inputData['unique_key'] = $this->_make_unique_key($this->modelUser->get_max_user_id() + 1);
 
 
-var_dump($inputData);
+var_dump($this->session->userdata());
 exit;
 
 
