@@ -51,31 +51,9 @@ class Complete extends CI_Controller {
                 if(empty($resInsert) || !$resInsert['res']) break;
 
                 // サンクスメール送信
-                $this->_user_sendMail($inputData);
-/*
-                $mailData = array(
-                    'name'       => $inputData['name1']. " ". $inputData['name2'],
-                    'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $inputData['unique_key'],
-                );
-                $this->form->_my_sendmail('template/mail/reg_user',
-                                          $mailData,
-                                          $this->config->item('reg_user_from_admin_mail'),
-                                          $this->config->item('reg_user_from_admin_name'),
-                                          $inputData['mail'],
-                                          $this->config->item('reg_user_subject_user_temp')
-                                         );
-*/
+                $resMail = $this->_user_sendMail($inputData);
                 // 管理者通知メール送信
 
-/*
-                $message = $this->parser->parse('template/mail/reg_user', $mailData, TRUE);
-
-                $this->email->from($this->config->item('reg_user_from_admin_mail'), mb_encode_mimeheader($this->config->item('reg_user_from_admin_name'), 'UTF-8', 'B'));
-                $this->email->to($inputData['mail']);
-                $this->email->subject($this->config->item('reg_user_subject_user_temp'));
-                $this->email->message($message);
-                $this->email->send();
-*/
                 // セッションクリア
                 $this->session->sess_destroy();
                 break;
@@ -96,17 +74,22 @@ class Complete extends CI_Controller {
     }
 
 /********************* ↓ sub function ↓ *********************/
+    // サンクスメール送信
     public function _user_sendMail($data)
     {
-        $mailData = array(
-            'name'       => $data['name1']. " ". $data['name2'],
-            'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
-        );
-        $this->form->_my_sendmail('template/mail/reg_user',
-                                  $mailData,
-                                  $this->config->item('reg_user_from_admin_mail'),
-                                  $this->config->item('reg_user_from_admin_name'),
-                                  $data['mail'],
-                                  $this->config->item('reg_user_subject_user_temp'));
+        $res = false;
+        if(!empty($data)){
+            $mailData = array(
+                'name'       => $data['name1']. " ". $data['name2'],
+                'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
+            );
+            $res = $this->form->_my_sendmail('template/mail/reg_user',
+                                             $mailData,
+                                             $this->config->item('reg_user_from_admin_mail'),
+                                             $this->config->item('reg_user_from_admin_name'),
+                                             $data['mail'],
+                                             $this->config->item('reg_user_subject_user_temp'));
+        }
+        return $res;
     }
 }

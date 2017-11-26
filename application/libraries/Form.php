@@ -61,7 +61,7 @@ class Form {
         $this->CI->email->to($to);
         $this->CI->email->subject($subject);
         $this->CI->email->message($message);
-        $this->CI->email->send();
+        return $this->CI->email->send();
     }
 
     // 新規ユーザー登録の入力チェック
