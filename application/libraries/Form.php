@@ -14,10 +14,12 @@ class Form {
     public function _alpha_numeric_symbol()
     {
         $target = $this->CI->input->post("password");
+/*
         if ($target == null) {
             $this->CI->form_validation->set_message('_alpha_numeric_symbol', '');
             return false;
         }
+*/
         if(preg_match("/^[!-~]+$/", $target)){
             return true;
         }else{
@@ -188,13 +190,25 @@ class Form {
                 'label'  => 'password',
                 'rules'  => 'required|min_length[6]|max_length[255]|callback__alpha_numeric_symbol',
                 'errors' => [
-                    'required'   => 'ユーザーID を入力してください。',
-                    'min_length' => 'ユーザーID は半角6文字以上で入力してください。',
-                    'max_length' => 'ユーザーID は半角255文字以下で入力してください。',
+                    'required'   => 'パスワード を入力してください。',
+                    'min_length' => 'パスワード は半角6文字以上で入力してください。',
+                    'max_length' => 'パスワード は半角255文字以下で入力してください。',
                 ]
             ]
         ];
+
+
+
+
         $this->CI->form_validation->set_rules($config);
+
+        $this->form_validation->set_rules('password', 'password', array(
+            'required',
+            'xss_clean',
+            array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))
+        ));
+
+
         return $this->CI->form_validation->run();
     }
 
