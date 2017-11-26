@@ -20,6 +20,9 @@ class Form {
             return false;
         }
 */
+
+return true;
+
         if(preg_match("/^[!-~]+$/", $target)){
             return true;
         }else{
