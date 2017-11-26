@@ -47,7 +47,7 @@ class Input extends CI_Controller {
         switch($this->viewType){
             case self::INPUT_START:     // 初期表示
                 if($this->session->has_userdata('fix_flg') && $this->session->userdata('fix_flg') == 1){
-                    
+                    $this->input->post($this->session->userdata());
                 }
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 $this->viewData['pref_list'] = $this->config->item('pref_list');
