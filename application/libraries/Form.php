@@ -204,12 +204,19 @@ return true;
 
 
         $this->CI->form_validation->set_rules($config);
-
+/*
         $this->CI->form_validation->set_rules('password', 'password', array(
             'required',
             'xss_clean',
             array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))
         ));
+*/
+
+
+        $this->CI->form_validation->set_rules('password', 'パスワード', array('required',array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))),
+                                                array('required' => '%s を入力してください。')
+                                        );
+
 
 
         return $this->CI->form_validation->run();
