@@ -15,7 +15,7 @@ class Form {
     {
         $target = $this->CI->input->post("password");
         if ($target == null) {
-            $this->form_validation->set_message('_alpha_numeric_symbol', '');
+            $this->CI->form_validation->set_message('_alpha_numeric_symbol', '');
             return false;
         }
         if(preg_match("/^[!-~]+$/", $target)){
