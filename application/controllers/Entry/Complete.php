@@ -17,9 +17,18 @@ class Complete extends CI_Controller {
         $this->config->load('my_config');
         $this->load->library('email');
         $this->load->library('parser');
-//        $this->load->library('login_lib');
+        $this->load->library('Form');
     }
 
+/********************* ↓ routes function ↓ *********************/
+    public function index()
+    {
+        $this->viewType = $this->_preprocess();
+        $this->_mainprocess();
+        $this->_main_view();
+    }
+
+/********************* ↓ main function ↓ *********************/
     public function _preprocess()
     {
         $res = 0;
@@ -37,15 +46,28 @@ class Complete extends CI_Controller {
             case self::COMPLETE_START:
                 // DB に仮登録
                 $inputData = $this->session->userdata();
-                $inputData['unique_key'] = $this->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+                $inputData['unique_key'] = $this->form->_make_unique_key($this->modelUser->get_max_user_id() + 1);
                 $resInsert = $this->modelUser->insert_user_data($inputData);
                 if(empty($resInsert) || !$resInsert['res']) break;
 
-                // メール送信
+                // サンクスメール送信
+                $this->_user_sendMail($inputData);
+/*
                 $mailData = array(
                     'name'       => $inputData['name1']. " ". $inputData['name2'],
                     'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $inputData['unique_key'],
                 );
+                $this->form->_my_sendmail('template/mail/reg_user',
+                                          $mailData,
+                                          $this->config->item('reg_user_from_admin_mail'),
+                                          $this->config->item('reg_user_from_admin_name'),
+                                          $inputData['mail'],
+                                          $this->config->item('reg_user_subject_user_temp')
+                                         );
+*/
+                // 管理者通知メール送信
+
+/*
                 $message = $this->parser->parse('template/mail/reg_user', $mailData, TRUE);
 
                 $this->email->from($this->config->item('reg_user_from_admin_mail'), mb_encode_mimeheader($this->config->item('reg_user_from_admin_name'), 'UTF-8', 'B'));
@@ -53,7 +75,7 @@ class Complete extends CI_Controller {
                 $this->email->subject($this->config->item('reg_user_subject_user_temp'));
                 $this->email->message($message);
                 $this->email->send();
-
+*/
                 // セッションクリア
                 $this->session->sess_destroy();
                 break;
@@ -73,17 +95,18 @@ class Complete extends CI_Controller {
         $this->load->view('footer', $this->viewData);
     }
 
-    public function index()
-    {
-        $this->viewType = $this->_preprocess();
-        $this->_mainprocess();
-        $this->_main_view();
-    }
-
 /********************* ↓ sub function ↓ *********************/
-    // ユニークキー生成
-    public function _make_unique_key($id)
+    public function _user_sendMail($data)
     {
-        return (!empty($id))? md5(uniqid($id. rand(),1)): '';
+        $mailData = array(
+            'name'       => $data['name1']. " ". $data['name2'],
+            'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
+        );
+        $this->form->_my_sendmail('template/mail/reg_user',
+                                  $mailData,
+                                  $this->config->item('reg_user_from_admin_mail'),
+                                  $this->config->item('reg_user_from_admin_name'),
+                                  $data['mail'],
+                                  $this->config->item('reg_user_subject_user_temp'));
     }
 }

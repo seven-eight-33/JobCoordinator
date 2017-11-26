@@ -23,171 +23,276 @@ class Form {
         }
     }
 
+    // パスワードマスク
+    public function _make_pass($target)
+    {
+        $result = array();
+        if(!empty($target)){
+            // パスワードマスク
+            $result['mask_pass'] = mb_substr($target, 0, 1);
+            for($i = 0; $i < mb_strlen($target) - 1; $i++){
+                $result['mask_pass'] .= '*';
+            }
+            // salt生成
+            $result['salt'] = bin2hex(random_bytes(32));
+            // stretch生成
+            $result['stretch'] = random_int(1, 99);
+            // パスワードハッシュ化
+            $result['hash_pass'] = hash_hmac('sha512', $result['salt']. $target, false);
+            for($i = 0; $i < $result['stretch']; $i++){
+                $result['hash_pass'] = hash_hmac('sha512', $result['hash_pass'], false);
+            }
+        }
+        return $result;
+    }
+
+    // ユニークキー生成
+    public function _make_unique_key($id)
+    {
+        return (!empty($id))? md5(uniqid($id. rand(),1)): '';
+    }
+
+    // メール送信
+    public function _my_sendmail($tempPath, $data, $from, $fromName, $to, $subject, $encode = 'UTF-8')
+    {
+        $message = $this->CI->parser->parse($tempPath, $data, TRUE);
+
+        $this->CI->email->from($from, mb_encode_mimeheader($fromName, $encode, 'B'));
+        $this->CI->email->to($to);
+        $this->CI->email->subject($subject);
+        $this->CI->email->message($message);
+        $this->CI->email->send();
+    }
+
+    // 新規ユーザー登録の入力チェック
     public function _input_validation()
     {
         $config = [
             [
                 'field'  => 'user_id',
-                'label'  => 'user_id',
-                'rules'  => 'required|min_length[6]|max_length[20]|alpha_dash|is_unique[USER.LOGIN_ID]',
+                'label'  => 'ユーザーID',
+                'rules'  => [
+                    'required',
+                    'min_length[6]',
+                    'max_length[20]',
+                    'alpha_dash',
+                    'is_unique[USER.LOGIN_ID]',
+                ],
                 'errors' => [
-                    'required'   => 'ユーザーID を入力してください。',
-                    'min_length' => 'ユーザーID は半角6文字以上で入力してください。',
-                    'max_length' => 'ユーザーID は半角20文字以下で入力してください。',
-                    'alpha_dash' => 'ユーザーID は半角英数字で入力してください。',
-                    'is_unique'  => '入力された ユーザーID は既に使用されています。別の ユーザーID を入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'min_length' => '%s は半角6文字以上で入力してください。',
+                    'max_length' => '%s は半角20文字以下で入力してください。',
+                    'alpha_dash' => '%s は半角英数字で入力してください。',
+                    'is_unique'  => '入力された %s は既に使用されています。別の %s を入力してください。',
                 ]
             ],
             [
                 'field'  => 'name1',
-                'label'  => 'name1',
-                'rules'  => 'required|max_length[60]',
+                'label'  => '氏名(姓)',
+                'rules'  => [
+                    'required',
+                    'max_length[60]',
+                ],
                 'errors' => [
-                    'required'   => '氏名(姓) を入力してください。',
-                    'max_length' => '氏名(姓) は60文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は60文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'name2',
-                'label'  => 'name2',
-                'rules'  => 'required|max_length[60]',
+                'label'  => '氏名(名)',
+                'rules'  => [
+                    'required',
+                    'max_length[60]',
+                ],
                 'errors' => [
-                    'required'   => '氏名(名) を入力してください。',
-                    'max_length' => '氏名(名) は60文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は60文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'name1_kana',
-                'label'  => 'name1_kana',
-                'rules'  => 'required|max_length[60]',
+                'label'  => '氏名カナ(セイ)',
+                'rules'  => [
+                    'required',
+                    'max_length[60]',
+                ],
                 'errors' => [
-                    'required'   => '氏名カナ(セイ) を入力してください。',
-                    'max_length' => '氏名カナ(セイ) は60文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は60文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'name2_kana',
-                'label'  => 'name2_kana',
-                'rules'  => 'required|max_length[60]',
+                'label'  => '氏名カナ(メイ)',
+                'rules'  => [
+                    'required',
+                    'max_length[60]',
+                ],
                 'errors' => [
-                    'required'   => '氏名カナ(メイ) を入力してください。',
-                    'max_length' => '氏名カナ(メイ) は60文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は60文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'sex',
-                'label'  => 'sex',
-                'rules'  => 'required|is_natural_no_zero|less_than[3]',
+                'label'  => '性別',
+                'rules'  => [
+                    'required',
+                    'is_natural_no_zero',
+                    'less_than[3]',
+                ],
                 'errors' => [
-                    'required'           => '性別 を入力してください。',
-                    'is_natural_no_zero' => '性別 を正しく入力してください。',
-                    'less_than'          => '性別 を正しく入力してください。',
+                    'required'           => '%s を入力してください。',
+                    'is_natural_no_zero' => '%s を正しく入力してください。',
+                    'less_than'          => '%s を正しく入力してください。',
                 ]
             ],
             [
                 'field'  => 'zip1',
-                'label'  => 'zip1',
-                'rules'  => 'required|exact_length[3]|numeric',
+                'label'  => '郵便番号(前)',
+                'rules'  => [
+                    'required',
+                    'exact_length[3]',
+                    'numeric',
+                ],
                 'errors' => [
-                    'required'     => '郵便番号(前) を入力してください。',
-                    'exact_length' => '郵便番号(前) は3桁で入力してください。',
-                    'numeric'      => '郵便番号(前) は数字で入力してください。',
+                    'required'     => '%s を入力してください。',
+                    'exact_length' => '%s は3桁で入力してください。',
+                    'numeric'      => '%s は数字で入力してください。',
                 ]
             ],
             [
                 'field'  => 'zip2',
-                'label'  => 'zip2',
-                'rules'  => 'required|exact_length[4]|numeric',
+                'label'  => '郵便番号(後)',
+                'rules'  => [
+                    'required',
+                    'exact_length[4]',
+                    'numeric',
+                ],
                 'errors' => [
-                    'required'     => '郵便番号(後) を入力してください。',
-                    'exact_length' => '郵便番号(後) は4桁で入力してください。',
-                    'numeric'      => '郵便番号(後) は数字で入力してください。',
+                    'required'     => '%s を入力してください。',
+                    'exact_length' => '%s は4桁で入力してください。',
+                    'numeric'      => '%s は数字で入力してください。',
                 ]
             ],
             [
                 'field'  => 'pref',
-                'label'  => 'pref',
-                'rules'  => 'required|is_natural_no_zero|less_than[48]',
+                'label'  => '都道府県',
+                'rules'  => [
+                    'required',
+                    'is_natural_no_zero',
+                    'less_than[48]',
+                ],
                 'errors' => [
-                    'required'           => '都道府県 を選択してください。',
-                    'is_natural_no_zero' => '都道府県 を選択してください。',
-                    'less_than'          => '都道府県 を正しく入力してください。',
+                    'required'           => '%s を選択してください。',
+                    'is_natural_no_zero' => '%s を選択してください。',
+                    'less_than'          => '%s を正しく入力してください。',
                 ]
             ],
             [
                 'field'  => 'address1',
-                'label'  => 'address1',
-                'rules'  => 'required|max_length[255]',
+                'label'  => '住所(市区町村)',
+                'rules'  => [
+                    'required',
+                    'max_length[255]'
+                ],
                 'errors' => [
-                    'required'   => '住所(市区町村) を入力してください。',
-                    'max_length' => '住所(市区町村) は255文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は255文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'address2',
-                'label'  => 'address2',
-                'rules'  => 'max_length[255]',
+                'label'  => '住所(番地、建物名)',
+                'rules'  => [
+                    'max_length[255]',
+                ],
                 'errors' => [
-                    'max_length' => '住所(番地、建物名) は255文字以下で入力してください。',
+                    'max_length' => '%s は255文字以下で入力してください。',
                 ]
             ],
             [
                 'field'  => 'tel1',
-                'label'  => 'tel1',
-                'rules'  => 'required|max_length[3]|numeric',
+                'label'  => '電話番号(前)',
+                'rules'  => [
+                    'required',
+                    'max_length[3]',
+                    'numeric',
+                ],
                 'errors' => [
-                    'required'   => '電話番号(前) を入力してください。',
-                    'max_length' => '電話番号(前) は3桁以下で入力してください。',
-                    'numeric'    => '電話番号(前) は数字で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は3桁以下で入力してください。',
+                    'numeric'    => '%s は数字で入力してください。',
                 ]
             ],
             [
                 'field'  => 'tel2',
-                'label'  => 'tel2',
-                'rules'  => 'required|max_length[4]|numeric',
+                'label'  => '電話番号(中)',
+                'rules'  => [
+                    'required',
+                    'max_length[4]',
+                    'numeric',
+                ],
                 'errors' => [
-                    'required'   => '電話番号(中) を入力してください。',
-                    'max_length' => '電話番号(中) は4桁以下で入力してください。',
-                    'numeric'    => '電話番号(中) は数字で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は4桁以下で入力してください。',
+                    'numeric'    => '%s は数字で入力してください。',
                 ]
             ],
             [
                 'field'  => 'tel3',
-                'label'  => 'tel3',
-                'rules'  => 'required|max_length[4]|numeric',
+                'label'  => '電話番号(後)',
+                'rules'  => [
+                    'required',
+                    'max_length[4]',
+                    'numeric',
+                ],
                 'errors' => [
-                    'required'   => '電話番号(後) を入力してください。',
-                    'max_length' => '電話番号(後) は4桁以下で入力してください。',
-                    'numeric'    => '電話番号(後) は数字で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => '%s は4桁以下で入力してください。',
+                    'numeric'    => '%s は数字で入力してください。',
                 ]
             ],
             [
                 'field'  => 'mail',
-                'label'  => 'mail',
-                'rules'  => 'required|max_length[255]|valid_email',
+                'label'  => 'メールアドレス',
+                'rules'  => [
+                    'required',
+                    'max_length[255]',
+                    'valid_email',
+                ],
                 'errors' => [
-                    'required'    => 'メールアドレス を入力してください。',
-                    'max_length'  => 'メールアドレス は255文字以下で入力してください。',
-                    'valid_email' => 'メールアドレス を正しく入力してください。',
+                    'required'    => '%s を入力してください。',
+                    'max_length'  => '%s は255文字以下で入力してください。',
+                    'valid_email' => '%s を正しく入力してください。',
                 ]
             ],
             [
                 'field'  => 'mail_conf',
-                'label'  => 'mail_conf',
-                'rules'  => 'required|matches[mail]',
+                'label'  => 'メールアドレス確認',
+                'rules'  => [
+                    'required',
+                    'matches[mail]',
+                ],
                 'errors' => [
-                    'required' => 'メールアドレス確認 を入力してください。',
-                    'matches'  => 'メールアドレス と メールアドレス確認 が一致しません。',
+                    'required' => '%s を入力してください。',
+                    'matches'  => 'メールアドレス と %s が一致しません。',
                 ]
             ],
             [
                 'field'  => 'password',
-                'label'  => 'password',
-                'rules'  => array('required','min_length[6]','max_length[255]',array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))),
+                'label'  => 'パスワード',
+                'rules'  => [
+                    'required',
+                    'min_length[6]',
+                    'max_length[255]',
+                    ['_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol')]
+                ],
                 'errors' => [
-                    'required'   => 'パスワード を入力してください。',
-                    'min_length' => 'パスワード は半角6文字以上で入力してください。',
-                    'max_length' => 'パスワード は半角255文字以下で入力してください。',
+                    'required'   => '%s を入力してください。',
+                    'min_length' => '%s は半角6文字以上で入力してください。',
+                    'max_length' => '%s は半角255文字以下で入力してください。',
                 ]
             ]
         ];
