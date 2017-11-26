@@ -97,11 +97,11 @@ class CI_Controller {
     public function _alpha_numeric_symbol()
     {
         $target = $this->input->post("password");
-        if ($target == null) {
+/*        if ($target == null) {
             $this->form_validation->set_message('_alpha_numeric_symbol', '');
             return false;
         }
-        if(preg_match("/^[!-~]+$/", $target)){
+*/        if(preg_match("/^[!-~]+$/", $target)){
             return true;
         }else{
             $this->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
