@@ -21,7 +21,7 @@ class Form {
         }
 */
 
-return true;
+//return true;
 
         if(preg_match("/^[!-~]+$/", $target)){
             return true;
