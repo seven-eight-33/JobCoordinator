@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </dd>
             </dl>
             <div class="txtC">
-                <button type='submit' name='action' value='1'>entry</button>
+                <button type='submit' name='action' value='1'>確認</button>
             </div>
         </form>
     </div>
