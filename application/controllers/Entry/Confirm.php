@@ -55,8 +55,19 @@ class Confirm extends CI_Controller {
                 $this->viewData['password_val'] = $this->session->userdata('mask_pass');
                 break;
             case self::CONFIRM_SUCCESS:
-                // 会員登録仮登録完了画面へ
-                redirect('entry/complete');
+                switch($this->input->post('action')){
+                    case 1:     // 登録ボタン押下
+                        // 会員登録仮登録完了画面へ
+                        redirect('entry/complete');
+                        break;
+                    case 2:     // 修正ボタン押下
+                        // 会員登録入力画面へ
+                        $this->session->set_userdata('fix_flg', '1');
+                        redirect('entry/input');
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case self::CONFIRM_ERROR:
                 // システムエラー

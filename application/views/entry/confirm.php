@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <dd><?php echo $password_val; ?></dd>
             </dl>
             <div class="txtC">
-                <button type='submit' name='action' value='1'>confirm</button>
+                <button type='submit' name='action' value='1'>登録</button>
+                <button type='submit' name='action' value='2'>修正</button>
             </div>
         </form>
     </div>
