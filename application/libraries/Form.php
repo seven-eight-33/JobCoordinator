@@ -202,7 +202,7 @@ class Form {
 
         $this->CI->form_validation->set_rules($config);
 
-        $this->form_validation->set_rules('password', 'password', array(
+        $this->CI->form_validation->set_rules('password', 'password', array(
             'required',
             'xss_clean',
             array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))
