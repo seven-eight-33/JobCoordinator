@@ -14,11 +14,11 @@ class Form {
     public function _alpha_numeric_symbol()
     {
         $target = $this->CI->input->post("password");
-        if(empty($target)) return ture;
+        if(empty($target)) return true;
         if(preg_match("/^[!-~]+$/", $target)){
             return true;
         }else{
-            $this->CI->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。1111111");
+            $this->CI->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
             return false;
         }
     }
