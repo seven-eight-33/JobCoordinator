@@ -13,7 +13,12 @@ class Form {
     // 半角英数記号チェック
     public function _alpha_numeric_symbol()
     {
-        if(preg_match("/^[!-~]+$/", $this->CI->input->post("password"))){
+        $target = $this->CI->input->post("password");
+        if ($target == null) {
+            $this->form_validation->set_message('_alpha_numeric_symbol', '');
+            return false;
+        }
+        if(preg_match("/^[!-~]+$/", $target)){
             return true;
         }else{
             $this->CI->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
