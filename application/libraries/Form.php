@@ -188,6 +188,7 @@ class Form {
                     'matches'  => 'メールアドレス と メールアドレス確認 が一致しません。',
                 ]
             ],
+/*
             [
                 'field'  => 'password',
                 'label'  => 'password',
@@ -198,7 +199,24 @@ class Form {
                     'max_length' => 'パスワード は半角255文字以下で入力してください。',
                 ]
             ]
+*/
+            [
+                'field'  => 'password',
+                'label'  => 'password',
+                'rules'  => array('required','min_length[6]','max_length[255]',array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))),
+                'errors' => [
+                    'required'   => 'パスワード を入力してください。',
+                    'min_length' => 'パスワード は半角6文字以上で入力してください。',
+                    'max_length' => 'パスワード は半角255文字以下で入力してください。',
+                ]
+            ]
         ];
+
+
+
+
+
+
 
 
 
@@ -212,11 +230,11 @@ class Form {
         ));
 */
 
-
+/*
         $this->CI->form_validation->set_rules('password', 'パスワード', array('required',array('_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol'))),
                                                 array('required' => '%s を入力してください。')
                                         );
-
+*/
 
 
         return $this->CI->form_validation->run();
