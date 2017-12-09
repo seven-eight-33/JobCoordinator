@@ -16,9 +16,19 @@ class Login extends CI_Controller {
         $this->load->helper('url', 'form');
         $this->load->library('form_validation');
         $this->load->model('User', 'modelUser', TRUE);
+        $this->load->library('Form');
 //        $this->load->library('login_lib');
     }
 
+/********************* ↓ routes function ↓ *********************/
+    public function index()
+    {
+        $this->viewType = $this->_preprocess();
+        $this->_mainprocess();
+        $this->_main_view();
+    }
+
+/********************* ↓ main function ↓ *********************/
     public function _preprocess()
     {
         $res = 0;
@@ -60,17 +70,11 @@ class Login extends CI_Controller {
         $this->load->view('footer', $this->viewData);
     }
 
-    public function index()
-    {
-        $this->viewType = $this->_preprocess();
-        $this->_mainprocess();
-        $this->_main_view();
-    }
-
 /********************* ↓ sub function ↓ *********************/
     public function login_check()
     {
-        $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $this->input->post("password"));
+        $pass_hash = $this->form->_make_pass($this->input->post("password"));
+        $userData = $this->modelUser->get_once_user($this->input->post("login_id"), $pass_hash['hash_pass']);
         if(!empty($userData)){
             return true;
         }else{
