@@ -7,8 +7,8 @@ class Confirm extends CI_Controller {
     const CONFIRM_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
     const CONFIRM_ERROR   = 3;	// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
 
-    public $viewType = 0;
-    public $viewData = NULL;
+    protected $viewType = 0;
+    protected $viewData = NULL;
 
     public function __construct()
     {

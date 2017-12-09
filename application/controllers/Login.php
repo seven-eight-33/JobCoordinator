@@ -55,10 +55,16 @@ class Login extends CI_Controller {
                 $this->viewData['result'] = $this->modelUser->get_all_user();
                 break;
             case self::LOGIN_SUCCESS:
+                // リダイレクト先を決定
+                $redirectUrl = 'mypage';
+                if(isset($this->session->userdata('logged_in_back_url')) && !empty($this->session->userdata('logged_in_back_url'))){
+                    $redirectUrl = $this->session->userdata('logged_in_back_url');
+                    $this->session->unset_userdata('logged_in_back_url');
+                }
                 // session 操作
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
                 $this->session->set_userdata($this->userData);
-                redirect('mypage');
+                redirect($redirectUrl);
                 break;
             case self::LOGIN_ERROR:
                 $this->viewData['title'] = 'JobCoordinator-Login';

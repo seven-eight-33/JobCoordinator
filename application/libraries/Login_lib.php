@@ -71,4 +71,28 @@ class Login_lib {
         }
         return $res;
     }
+
+    public function _check_magic_code($magicCode, $id, $mail)
+    {
+        $res = false;
+        if(!empty($magicCode) && !empty($id) && !empty($mail)){
+            if($magicCode === $this->_create_magic_code($id, $mail)) $res = true;
+        }
+        return $res;
+    }
+
+    public function _is_logged_in($backUrl)
+    {
+        $user = $this->CI->session->userdata();
+        if(isset($user['magic_code']) && !empty($user['magic_code']) && $this->_check_magic_code($user['magic_code'], $user['LOGIN_ID'], $user['MAIL'])){
+            return true;
+        }else{
+            // 未ログイン
+            // セッションにログイン後のURLをセット
+            $setData['logged_in_back_url'] = $backUrl;
+            $this->CI->session->set_userdata($setData);
+            // ログイン画面にリダイレクト
+            redirect('login');
+        }
+    }
 }
