@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    const LOGIN_START = 1;		// ログイン画面出力
+    const LOGIN_START   = 1;	// ログイン画面出力
     const LOGIN_SUCCESS = 2;	// ログイン処理成功 → マイページTOPへ
-    const LOGIN_ERROR = 3;		// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
+    const LOGIN_ERROR   = 3;	// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
 
     public $viewType = 0;
     public $viewData = NULL;
@@ -17,7 +17,7 @@ class Login extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('User', 'modelUser', TRUE);
         $this->load->library('Form');
-//        $this->load->library('login_lib');
+        $this->load->library('login_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -35,7 +35,8 @@ class Login extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::LOGIN_START;
         }else{
-            if($this->login_validation()){
+//            if($this->login_validation()){
+            if($this->login_lib->_login_validation()){
                 $res = self::LOGIN_SUCCESS;
             }else{
                 $res = self::LOGIN_ERROR;
@@ -71,6 +72,7 @@ class Login extends CI_Controller {
     }
 
 /********************* ↓ sub function ↓ *********************/
+/*
     public function login_check()
     {
         $res = false;
@@ -84,15 +86,6 @@ class Login extends CI_Controller {
             $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
         }
         return $res;
-
-/*
-        if(!empty($userData)){
-            return true;
-        }else{
-            $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
-            return false;
-        }
-*/
     }
 
     public function login_validation()
@@ -120,4 +113,5 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules($config);
         return $this->form_validation->run();
     }
+*/    
 }
