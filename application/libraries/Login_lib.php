@@ -20,7 +20,7 @@ class Login_lib {
         }
 
         if(!$res){
-            $this->CI->form_validation->set_message("_login_check", "id または password を正しく入力してください。");
+            $this->CI->form_validation->set_message("_login_check", "id または password を正しく入力してください。3");
         }
         return $res;
     }
@@ -37,7 +37,7 @@ class Login_lib {
                 ],
                 'errors' => [
                     'required'   => '%s を入力してください。',
-                    'max_length' => '%s または password を正しく入力してください。',
+                    'max_length' => '%s または password を正しく入力してください。1',
                 ]
             ],
             [
@@ -50,7 +50,7 @@ class Login_lib {
                 ],
                 'errors' => [
                     'required' => '%s を入力してください。',
-                    'max_length' => 'id または %s を正しく入力してください。',
+                    'max_length' => 'id または %s を正しく入力してください。2',
                 ]
             ]
         ];
