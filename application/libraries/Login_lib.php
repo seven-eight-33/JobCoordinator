@@ -61,4 +61,14 @@ class Login_lib {
         $this->CI->form_validation->set_rules($config);
         return $this->CI->form_validation->run();
     }
+
+    public function _create_magic_code($id, $mail)
+    {
+        if(empty($id) || empty($mail)) return false;
+        $res = $this->CI->config->item('magic_code'). $id. $mail;
+        for($i = 0; $i < $this->CI->config->item('magic_count'); $i++){
+            $res = hash_hmac($this->CI->config->item('magic_type'), $res, false);
+        }
+        return $res;
+    }
 }

@@ -9,6 +9,7 @@ class Login extends CI_Controller {
 
     public $viewType = 0;
     public $viewData = NULL;
+    protected $userData = NULL;
 
     public function __construct()
     {
@@ -35,8 +36,11 @@ class Login extends CI_Controller {
             $res = self::LOGIN_START;
         }else{
             if($this->login_lib->_login_validation()){
+                // バリデーション成功 → ユーザーデータを取得
+                $this->userData = $this->modelUser->get_once_user($this->input->post("login_id"));
                 $res = self::LOGIN_SUCCESS;
             }else{
+                // バリデーションエラー
                 $res = self::LOGIN_ERROR;
             }
         }
@@ -52,6 +56,8 @@ class Login extends CI_Controller {
                 break;
             case self::LOGIN_SUCCESS:
                 // session 操作
+                $this->userData->magic_code = $this->login_lib->_create_magic_code($this->userData->LOGIN_ID, $this->userData->MAIL);
+                $this->session->set_userdata($this->userData);
                 redirect('mypage');
                 break;
             case self::LOGIN_ERROR:

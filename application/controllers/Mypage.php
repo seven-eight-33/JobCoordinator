@@ -11,6 +11,8 @@ class Mypage extends CI_Controller {
 
     public function index()
     {
+var_dump($this->session->all_userdata());
+exit;
         $data['title'] = 'JobCoordinator-Mypage';
         $data['result'] = $this->modelUser->get_all_user();
         $this->load->view('header', $data);
