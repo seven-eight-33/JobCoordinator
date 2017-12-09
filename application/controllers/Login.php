@@ -11,7 +11,7 @@ class Login extends CI_Controller {
     public $viewData = NULL;
     protected $userData = NULL;
 
-    protected function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
@@ -21,7 +21,7 @@ class Login extends CI_Controller {
     }
 
 /********************* ↓ routes function ↓ *********************/
-    protected function index()
+    public function index()
     {
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
