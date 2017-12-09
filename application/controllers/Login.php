@@ -11,7 +11,7 @@ class Login extends CI_Controller {
     public $viewData = NULL;
     protected $userData = NULL;
 
-    public function __construct()
+    protected function __construct()
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
@@ -21,7 +21,7 @@ class Login extends CI_Controller {
     }
 
 /********************* ↓ routes function ↓ *********************/
-    public function index()
+    protected function index()
     {
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
@@ -29,7 +29,7 @@ class Login extends CI_Controller {
     }
 
 /********************* ↓ main function ↓ *********************/
-    public function _preprocess()
+    protected function _preprocess()
     {
         $res = 0;
         if(empty($this->input->post('action'))){
@@ -47,7 +47,7 @@ class Login extends CI_Controller {
         return $res;
     }
 
-    public function _mainprocess()
+    protected function _mainprocess()
     {
         switch($this->viewType){
             case self::LOGIN_START:
@@ -57,8 +57,6 @@ class Login extends CI_Controller {
             case self::LOGIN_SUCCESS:
                 // session 操作
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
-//                var_dump($this->userData);
-//                exit;
                 $this->session->set_userdata($this->userData);
                 redirect('mypage');
                 break;
@@ -70,7 +68,7 @@ class Login extends CI_Controller {
         }
     }
 
-    public function _main_view()
+    protected function _main_view()
     {
         $this->load->view('header', $this->viewData);
         $this->load->view('login', $this->viewData);
