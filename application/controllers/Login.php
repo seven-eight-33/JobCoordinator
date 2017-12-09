@@ -78,11 +78,11 @@ class Login extends CI_Controller {
         $userData = $this->modelUser->get_once_user($this->input->post("login_id"));
         if(!empty($userData)){
 
-var_dump($userData);
-exit;
+//var_dump($userData);
+//exit;
 
-            $pass_hash = $this->form->_my_hash($this->input->post("password"), $userData['SALT'], $userData['STRETCH']);
-            if($userData['PASSWORD'] == $pass_hash) $res = true;
+            $pass_hash = $this->form->_my_hash($this->input->post("password"), $userData[0]['SALT'], $userData[0]['STRETCH']);
+            if($userData[0]['PASSWORD'] == $pass_hash) $res = true;
         }
 
         if(!$res){
