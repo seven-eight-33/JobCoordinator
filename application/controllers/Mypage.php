@@ -40,7 +40,7 @@ class Mypage extends CI_Controller {
     protected function _mainprocess()
     {
         switch($this->viewType){
-            case self::LOGIN_START:
+            case self::MYPAGE_START:
                 $this->viewData['title'] = 'JobCoordinator-Login';
                 break;
             default:
