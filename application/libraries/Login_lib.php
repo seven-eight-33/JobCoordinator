@@ -20,7 +20,7 @@ class Login_lib {
         }
 
         if(!$res){
-            $this->CI->form_validation->set_message("login_check", "id または password を正しく入力してください。");
+            $this->CI->form_validation->set_message("_login_check", "id または password を正しく入力してください。");
         }
         return $res;
     }
