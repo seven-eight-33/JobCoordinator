@@ -12,15 +12,19 @@ class Login_lib {
 
     public function _login_check()
     {
+        $target_id = $this->CI->input->post("login_id");
+        $target_pass = $this->input->post("password");
+        if(empty($target_id) || empty($target_pass)) return true;
+
         $res = false;
-        $userData = $this->CI->modelUser->get_once_user($this->CI->input->post("login_id"));
+        $userData = $this->CI->modelUser->get_once_user($target_id);
         if(!empty($userData)){
-            $pass_hash = $this->CI->form->_my_hash($this->input->post("password"), $userData->SALT, $userData->STRETCH);
+            $pass_hash = $this->CI->form->_my_hash($target_pass, $userData->SALT, $userData->STRETCH);
             if($userData->PASSWORD == $pass_hash) $res = true;
         }
 
         if(!$res){
-            $this->CI->form_validation->set_message("_login_check", "id または password を正しく入力してください。3");
+            $this->CI->form_validation->set_message("_login_check", "id または password を正しく入力してください。");
         }
         return $res;
     }
@@ -37,7 +41,7 @@ class Login_lib {
                 ],
                 'errors' => [
                     'required'   => '%s を入力してください。',
-                    'max_length' => '%s または password を正しく入力してください。1',
+                    'max_length' => '%s または password を正しく入力してください。',
                 ]
             ],
             [
@@ -49,8 +53,8 @@ class Login_lib {
                     ['_login_check', array($this, '_login_check')],
                 ],
                 'errors' => [
-                    'required' => '%s を入力してください。',
-                    'max_length' => 'id または %s を正しく入力してください。2',
+                    'required'   => '%s を入力してください。',
+                    'max_length' => 'id または %s を正しく入力してください。',
                 ]
             ]
         ];

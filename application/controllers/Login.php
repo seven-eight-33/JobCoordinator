@@ -13,8 +13,6 @@ class Login extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-//        $this->load->helper('url', 'form');
-//        $this->load->library('form_validation');
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
         $this->load->library('Form');
@@ -36,7 +34,6 @@ class Login extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::LOGIN_START;
         }else{
-//            if($this->login_validation()){
             if($this->login_lib->_login_validation()){
                 $res = self::LOGIN_SUCCESS;
             }else{
@@ -73,46 +70,4 @@ class Login extends CI_Controller {
     }
 
 /********************* ↓ sub function ↓ *********************/
-/*
-    public function login_check()
-    {
-        $res = false;
-        $userData = $this->modelUser->get_once_user($this->input->post("login_id"));
-        if(!empty($userData)){
-            $pass_hash = $this->form->_my_hash($this->input->post("password"), $userData->SALT, $userData->STRETCH);
-            if($userData->PASSWORD == $pass_hash) $res = true;
-        }
-
-        if(!$res){
-            $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
-        }
-        return $res;
-    }
-
-    public function login_validation()
-    {
-        $config = [
-            [
-                'field' => 'login_id',
-                'label' => 'id',
-                'rules' => 'required|max_length[20]',
-                'errors' => [
-                    'required' => 'id を入力してください。',
-                    'max_length' => 'id または password を正しく入力してください。',
-                ]
-            ],
-            [
-                'field' => 'password',
-                'label' => 'password',
-                'rules' => 'required|max_length[20]|callback_login_check',
-                'errors' => [
-                    'required' => 'password を入力してください。',
-                    'max_length' => 'id または password を正しく入力してください。',
-                ]
-            ]
-        ];
-        $this->form_validation->set_rules($config);
-        return $this->form_validation->run();
-    }
-*/
 }
