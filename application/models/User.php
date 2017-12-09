@@ -13,11 +13,10 @@ class User extends CI_Model
                 return $query->result();
         }
 
-        public function get_once_user($loginId, $password)
+        public function get_once_user($loginId)
         {
             $where = array(
-                        'LOGIN_ID' => $loginId,
-                        'PASSWORD' => $password
+                        'LOGIN_ID' => $loginId
                     );
             $this->db->select('*');
             $this->db->from('USER');

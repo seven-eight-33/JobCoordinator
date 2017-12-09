@@ -38,14 +38,29 @@ class Form {
             // stretch生成
             $result['stretch'] = random_int(1, 99);
             // パスワードハッシュ化
+            $result['hash_pass'] = $this->_my_hash($target, $result['salt'], $result['stretch']);
+
+/*
             $result['hash_pass'] = hash_hmac('sha512', $result['salt']. $target, false);
             for($i = 0; $i < $result['stretch']; $i++){
                 $result['hash_pass'] = hash_hmac('sha512', $result['hash_pass'], false);
             }
+*/
         }
         return $result;
     }
 
+    // パスワードハッシュ化
+    public function _my_hash($base, $salt, $stretch = 0, $hash_type = 'sha512')
+    {
+        if(empty($base) || empty($salt)) return false;
+        $res_pass = $salt. $base;
+        for($i = 0; $i < $stretch; $i++){
+            $res_pass = hash_hmac($hash_type, $res_pass, false);
+        }
+        return $res_pass;
+    }
+    
     // ユニークキー生成
     public function _make_unique_key($id)
     {
