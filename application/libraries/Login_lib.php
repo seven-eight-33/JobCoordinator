@@ -19,8 +19,8 @@ class Login_lib {
         $res = false;
         $userData = $this->CI->modelUser->get_once_user($target_id);
         if(!empty($userData)){
-            $pass_hash = $this->CI->form->_my_hash($target_pass, $userData->SALT, $userData->STRETCH);
-            if($userData->PASSWORD == $pass_hash) $res = true;
+            $pass_hash = $this->CI->form->_my_hash($target_pass, $userData['SALT'], $userData['STRETCH']);
+            if($userData['PASSWORD'] == $pass_hash) $res = true;
         }
 
         if(!$res){
