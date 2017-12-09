@@ -77,6 +77,10 @@ class Login extends CI_Controller {
 //        $pass_hash = $this->form->_make_pass($this->input->post("password"));
         $userData = $this->modelUser->get_once_user($this->input->post("login_id"));
         if(!empty($userData)){
+
+var_dump($userData);
+exit;
+
             $pass_hash = $this->form->_my_hash($this->input->post("password"), $userData['SALT'], $userData['STRETCH']);
             if($userData['PASSWORD'] == $pass_hash) $res = true;
         }
@@ -93,7 +97,7 @@ class Login extends CI_Controller {
             $this->form_validation->set_message("login_check", "id または password を正しく入力してください。");
             return false;
         }
-*/        
+*/
     }
 
     public function login_validation()
