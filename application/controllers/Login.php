@@ -7,8 +7,8 @@ class Login extends CI_Controller {
     const LOGIN_SUCCESS = 2;	// ログイン処理成功 → マイページTOPへ
     const LOGIN_ERROR   = 3;	// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
 
-    public $viewType = 0;
-    public $viewData = NULL;
+    protected $viewType = 0;
+    protected $viewData = NULL;
     protected $userData = NULL;
 
     public function __construct()

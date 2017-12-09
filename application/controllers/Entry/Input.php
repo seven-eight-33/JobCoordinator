@@ -27,7 +27,7 @@ class Input extends CI_Controller {
     }
 
 /********************* ↓ main function ↓ *********************/
-    public function _preprocess()
+    protected function _preprocess()
     {
         $res = 0;
         if(empty($this->input->post('action'))){
@@ -42,7 +42,7 @@ class Input extends CI_Controller {
         return $res;
     }
 
-    public function _mainprocess()
+    protected function _mainprocess()
     {
         switch($this->viewType){
             case self::INPUT_START:     // 初期表示
@@ -69,7 +69,7 @@ class Input extends CI_Controller {
         }
     }
 
-    public function _main_view()
+    protected function _main_view()
     {
         $this->load->view('header', $this->viewData);
         $this->load->view('entry/input', $this->viewData);

@@ -29,7 +29,7 @@ class Complete extends CI_Controller {
     }
 
 /********************* ↓ main function ↓ *********************/
-    public function _preprocess()
+    protected function _preprocess()
     {
         $res = 0;
         if(!empty($this->session->userdata())){
@@ -40,7 +40,7 @@ class Complete extends CI_Controller {
         return $res;
     }
 
-    public function _mainprocess()
+    protected function _mainprocess()
     {
         switch($this->viewType){
             case self::COMPLETE_START:
@@ -66,7 +66,7 @@ class Complete extends CI_Controller {
         }
     }
 
-    public function _main_view()
+    protected function _main_view()
     {
         $this->load->view('header', $this->viewData);
         $this->load->view('entry/complete', $this->viewData);
