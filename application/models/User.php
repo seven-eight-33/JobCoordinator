@@ -15,6 +15,7 @@ class User extends CI_Model
 
         public function get_once_user($loginId)
         {
+            $resData = array();
             $where = array(
                         'LOGIN_ID' => $loginId
                     );
@@ -22,8 +23,12 @@ class User extends CI_Model
             $this->db->from('USER');
             $this->db->where($where);
             $query = $this->db->get();
+            $resDataTemp = $query->result();
+            if(!empty($resDataTemp)){
+                $resData = $resDataTemp[0];
+            }
 
-            return $query->result();
+            return $resData;
         }
 
         public function get_max_user_id()
