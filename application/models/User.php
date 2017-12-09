@@ -23,7 +23,11 @@ class User extends CI_Model
         $this->db->from('USER');
         $this->db->where($where);
         $query = $this->db->get();
-        $resDataTemp = $query->result();
+        $resDataTemp = $query->result('array');
+
+var_dump($resDataTemp);
+exit;
+
         if(!empty($resDataTemp)){
             $resData = $resDataTemp[0];
         }
