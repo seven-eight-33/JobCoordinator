@@ -13,7 +13,7 @@ class Login_lib {
     public function _login_check()
     {
         $target_id = $this->CI->input->post("login_id");
-        $target_pass = $this->input->post("password");
+        $target_pass = $this->CI->input->post("password");
         if(empty($target_id) || empty($target_pass)) return true;
 
         $res = false;
