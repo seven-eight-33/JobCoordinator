@@ -57,8 +57,8 @@ class Login extends CI_Controller {
             case self::LOGIN_SUCCESS:
                 // session 操作
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
-                var_dump($this->userData);
-                exit;
+//                var_dump($this->userData);
+//                exit;
                 $this->session->set_userdata($this->userData);
                 redirect('mypage');
                 break;
