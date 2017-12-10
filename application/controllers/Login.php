@@ -3,13 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    const LOGIN_START   = 1;	// ログイン画面出力
-    const LOGIN_SUCCESS = 2;	// ログイン処理成功 → マイページTOPへ
-    const LOGIN_ERROR   = 3;	// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
+    const LOGIN_START    = 1;	// ログイン画面出力
+    const LOGIN_SUCCESS  = 2;	// ログイン処理成功 → マイページTOPへ
+    const LOGIN_ERROR    = 3;	// ログイン処理失敗 → エラーメッセージをセットしてログイン画面出力
 
-    protected $viewType = 0;
-    protected $viewData = NULL;
-    protected $userData = NULL;
+    protected $viewType  = 0;
+    protected $viewData  = NULL;
+    protected $userData  = NULL;
+    protected $inputData = NULL;
 
     public function __construct()
     {
