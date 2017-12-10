@@ -10,6 +10,36 @@ class Form {
         $this->CI =& get_instance();
     }
 
+    /**
+     * 処理概要 ：  記号のサニタイジングを行う<br />
+     *
+     * @param string $str 文字列
+     * @return string $str サニタイズ後の文字列
+     */
+    function htmlSanitize($str) {
+
+        if ($str == ""){
+            return $str;
+        }
+
+        $str = htmlspecialchars($str);
+
+        $str = str_replace('$',  '&#36;',  $str);
+        $str = str_replace('%',  '&#37;',  $str);
+        $str = str_replace('\'', '&#39;',  $str);
+        $str = str_replace('(',  '&#40;',  $str);
+        $str = str_replace(')',  '&#41;',  $str);
+        $str = str_replace('*',  '&#42;',  $str);
+        $str = str_replace(',', '&#44;',  $str);
+        $str = str_replace('/',  '&#47;',  $str);
+        $str = str_replace(':',  '&#58;',  $str);
+        $str = str_replace('?',  '&#63;',  $str);
+        $str = str_replace('|',  '&#124;', $str);
+        $str = str_replace('\\', '&#92;',  $str);
+
+        return $str;
+    }
+
     // 半角英数記号チェック
     public function _alpha_numeric_symbol()
     {

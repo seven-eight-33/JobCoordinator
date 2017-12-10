@@ -53,6 +53,9 @@ class Confirm extends CI_Controller {
                 $pref_list = $this->config->item('pref_list');
                 $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $this->viewData['password_val'] = $this->session->userdata('mask_pass');
+                foreach($this->viewData as $key => $val){
+                    $this->viewData[$key] = $this->form->htmlSanitize($val);
+                }
                 break;
             case self::CONFIRM_SUCCESS:
                 switch($this->input->post('action')){
