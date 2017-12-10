@@ -46,16 +46,16 @@ class Confirm extends CI_Controller {
     {
         switch($this->viewType){
             case self::CONFIRM_START:
-                $this->viewData = $this->session->userdata();
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 $sex_list = $this->config->item('sex_list');
-                $this->viewData['sex_val'] = $sex_list[$this->session->userdata('sex')];
                 $pref_list = $this->config->item('pref_list');
-                $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
-                $this->viewData['password_val'] = $this->session->userdata('mask_pass');
-                foreach($this->viewData as $key => $val){
-                    $this->viewData[$key] = $this->form->htmlSanitize($val);
-                }
+
+                $confData = $this->session->userdata();
+                $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
+                $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
+                $confData['password_val'] = $this->session->userdata('mask_pass');
+
+                $this->viewData = $this->form->_allHtmlSanitize($confData);
+                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             case self::CONFIRM_SUCCESS:
                 switch($this->input->post('action')){

@@ -16,11 +16,9 @@ class Form {
      * @param string $str 文字列
      * @return string $str サニタイズ後の文字列
      */
-    function htmlSanitize($str) {
-
-        if ($str == ""){
-            return $str;
-        }
+    public function _htmlSanitize($str)
+    {
+        if ($str == "") return $str;
 
         $str = htmlspecialchars($str);
 
@@ -38,6 +36,17 @@ class Form {
         $str = str_replace('\\', '&#92;',  $str);
 
         return $str;
+    }
+
+    public function _allHtmlSanitize($arr)
+    {
+        if(empty($arr)) return $arr;
+
+        $res = array();
+        foreach($arr as $key => $val){
+            $res[$key] = $this->_htmlSanitize($val);
+        }
+        return $res;
     }
 
     // 半角英数記号チェック
