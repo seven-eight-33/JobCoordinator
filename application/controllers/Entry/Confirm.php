@@ -53,11 +53,8 @@ class Confirm extends CI_Controller {
                 $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
                 $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $confData['password_val'] = $this->session->userdata('mask_pass');
-
-//                $this->viewData = $this->entry_lib->_allHtmlSanitize($confData);
                 $this->viewData = $this->my_string->_myHtmlSanitize($confData);
 
-                
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             case self::CONFIRM_SUCCESS:
