@@ -18,7 +18,7 @@ class Login extends CI_Controller {
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
         $this->load->library('Form');
-        $this->load->library('Login_lib');
+        $this->load->library('login_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
