@@ -17,7 +17,9 @@ class User extends CI_Model
     {
         $resData = array();
         $where = array(
-                    'LOGIN_ID' => $loginId
+                    'LOGIN_ID' => $loginId,
+//                    'REG_STATUS >=' => 1,
+                    'DEL_FLG'  => 0,
                 );
         $this->db->select('*');
         $this->db->from('USER');

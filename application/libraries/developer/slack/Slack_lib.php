@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form {
+class Slack_lib {
 
     protected $CI;
 
