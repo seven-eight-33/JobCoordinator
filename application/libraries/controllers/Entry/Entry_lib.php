@@ -308,7 +308,7 @@ class Entry_lib {
                     'required',
                     'max_length[255]',
                     'valid_email',
-                    'is_unique[USER.MAIL]',
+//                    'is_unique[USER.MAIL]',
                 ],
                 'errors' => [
                     'required'    => '%s を入力してください。',
