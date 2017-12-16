@@ -17,7 +17,7 @@ class Complete extends CI_Controller {
         $this->config->load('my_config');
         $this->load->library('email');
         $this->load->library('parser');
-        $this->load->library('Form');
+        $this->load->library('controllers/Entry/entry_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -46,7 +46,7 @@ class Complete extends CI_Controller {
             case self::COMPLETE_START:
                 // DB に仮登録
                 $inputData = $this->session->userdata();
-                $inputData['unique_key'] = $this->form->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+                $inputData['unique_key'] = $this->entry_lib->_make_unique_key($this->modelUser->get_max_user_id() + 1);
                 $resInsert = $this->modelUser->insert_user_data($inputData);
                 if(empty($resInsert) || !$resInsert['res']) break;
 
@@ -83,7 +83,7 @@ class Complete extends CI_Controller {
                 'name'       => $data['name1']. " ". $data['name2'],
                 'unique_url' => $this->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
             );
-            $res = $this->form->_my_sendmail('template/mail/reg_user',
+            $res = $this->entry_lib->_my_sendmail('template/mail/reg_user',
                                              $mailData,
                                              $this->config->item('reg_user_from_admin_mail'),
                                              $this->config->item('reg_user_from_admin_name'),

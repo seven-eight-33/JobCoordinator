@@ -15,7 +15,7 @@ class Confirm extends CI_Controller {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
-        $this->load->library('Form');
+        $this->load->library('controllers/Entry/entry_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -54,7 +54,7 @@ class Confirm extends CI_Controller {
                 $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $confData['password_val'] = $this->session->userdata('mask_pass');
 
-                $this->viewData = $this->form->_allHtmlSanitize($confData);
+                $this->viewData = $this->entry_lib->_allHtmlSanitize($confData);
                 $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             case self::CONFIRM_SUCCESS:

@@ -15,7 +15,7 @@ class Input extends CI_Controller {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
-        $this->load->library('Form');
+        $this->load->library('controllers/Entry/entry_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -33,7 +33,7 @@ class Input extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
         }else{
-            if($this->form->_input_validation()){
+            if($this->entry_lib->_input_validation()){
                 $res = self::INPUT_SUCCESS;
             }else{
                 $res = self::INPUT_ERROR;
@@ -56,7 +56,7 @@ class Input extends CI_Controller {
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
-                $userInput = array_merge($this->input->post(), $this->form->_make_pass($this->input->post('password')));
+                $userInput = array_merge($this->input->post(), $this->entry_lib->_make_pass($this->input->post('password')));
                 $this->session->set_userdata($userInput);
                 redirect('entry/confirm');
                 break;
