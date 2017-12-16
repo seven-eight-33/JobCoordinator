@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MyHtml {
+class My_device {
 
     public function __construct()
     {

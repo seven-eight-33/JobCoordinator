@@ -62,6 +62,15 @@ $autoload['libraries'] = array( 'form_validation',
                                 'session',
                                 'email',
                                 'parser',
+                                'common/my_check',
+                                'common/my_date',
+                                'common/my_db',
+                                'common/my_device',
+                                'common/my_file',
+                                'common/my_html',
+                                'common/my_mail',
+                                'common/my_session',
+                                'common/my_string',
                             );
 
 /*

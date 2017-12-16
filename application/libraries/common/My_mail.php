@@ -1,11 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MyMail extends CI_Email{
+class My_mail {
 
-    public function __construct($config = array())
+    protected $CI;
+
+    public function __construct()
     {
-        parent::__construct($config);
+        $this->CI =& get_instance();
     }
 
     // メール送信

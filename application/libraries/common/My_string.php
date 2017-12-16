@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MyString {
+class My_string {
 
     public function __construct()
     {

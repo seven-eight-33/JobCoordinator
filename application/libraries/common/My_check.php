@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MyCheck {
+class My_check {
 
     public function __construct()
     {

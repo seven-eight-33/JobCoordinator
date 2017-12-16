@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MyDb {
+class My_session {
 
     public function __construct()
     {
