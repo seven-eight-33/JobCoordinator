@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form {
+class Entry_lib {
 
     protected $CI;
 
@@ -10,41 +10,38 @@ class Form {
         $this->CI =& get_instance();
     }
 
-    /**
-     * 処理概要 ：  記号のサニタイジングを行う<br />
-     *
-     * @param string $str 文字列
-     * @return string $str サニタイズ後の文字列
-     */
-    public function _htmlSanitize($str)
+    // パスワードマスク
+    public function _make_pass($target)
     {
-        if ($str == "") return $str;
-
-        $str = htmlspecialchars($str);
-
-        $str = str_replace('$',  '&#36;',  $str);
-        $str = str_replace('%',  '&#37;',  $str);
-        $str = str_replace('\'', '&#39;',  $str);
-        $str = str_replace('(',  '&#40;',  $str);
-        $str = str_replace(')',  '&#41;',  $str);
-        $str = str_replace('*',  '&#42;',  $str);
-        $str = str_replace(',', '&#44;',  $str);
-        $str = str_replace('/',  '&#47;',  $str);
-        $str = str_replace(':',  '&#58;',  $str);
-        $str = str_replace('?',  '&#63;',  $str);
-        $str = str_replace('|',  '&#124;', $str);
-        $str = str_replace('\\', '&#92;',  $str);
-
-        return $str;
+        $result = array();
+        if(!empty($target)){
+            // パスワードマスク
+            $result['mask_pass'] = $this->CI->my_string->_make_str_mask($target);
+            // salt生成
+            $result['salt'] = $this->CI->my_string->_make_salt();
+            // stretch生成
+            $result['stretch'] = $this->CI->my_string->_make_stretch();
+            // パスワードハッシュ化
+            $result['hash_pass'] = $this->CI->my_string->_my_hash($target, $result['salt'], $result['stretch']);
+        }
+        return $result;
     }
 
-    public function _allHtmlSanitize($arr)
+    // ユーザーへサンクスメール送信
+    public function _user_sendMail($data)
     {
-        if(empty($arr)) return $arr;
-
-        $res = array();
-        foreach($arr as $key => $val){
-            $res[$key] = $this->_htmlSanitize($val);
+        $res = false;
+        if(!empty($data)){
+            $mailData = array(
+                'name'       => $data['name1']. " ". $data['name2'],
+                'unique_url' => $this->CI->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
+            );
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user',
+                                                     $mailData,
+                                                     $this->CI->config->item('reg_user_from_admin_mail'),
+                                                     $this->CI->config->item('reg_user_from_admin_name'),
+                                                     $data['mail'],
+                                                     $this->CI->config->item('reg_user_subject_user_temp'));
         }
         return $res;
     }
@@ -54,61 +51,12 @@ class Form {
     {
         $target = $this->CI->input->post("password");
         if(empty($target)) return true;
-        if(preg_match("/^[!-~]+$/", $target)){
+        if($this->CI->my_check->_alpha_numeric_symbol($target)){
             return true;
         }else{
             $this->CI->form_validation->set_message("_alpha_numeric_symbol", "パスワード は半角英数記号で入力してください。");
             return false;
         }
-    }
-
-    // パスワードマスク
-    public function _make_pass($target)
-    {
-        $result = array();
-        if(!empty($target)){
-            // パスワードマスク
-            $result['mask_pass'] = mb_substr($target, 0, 1);
-            for($i = 0; $i < mb_strlen($target) - 1; $i++){
-                $result['mask_pass'] .= '*';
-            }
-            // salt生成
-            $result['salt'] = bin2hex(random_bytes(32));
-            // stretch生成
-            $result['stretch'] = random_int(1, 99);
-            // パスワードハッシュ化
-            $result['hash_pass'] = $this->_my_hash($target, $result['salt'], $result['stretch']);
-        }
-        return $result;
-    }
-
-    // パスワードハッシュ化
-    public function _my_hash($base, $salt, $stretch = 0, $hash_type = 'sha512')
-    {
-        if(empty($base) || empty($salt)) return false;
-        $res_pass = $salt. $base;
-        for($i = 0; $i < $stretch; $i++){
-            $res_pass = hash_hmac($hash_type, $res_pass, false);
-        }
-        return $res_pass;
-    }
-
-    // ユニークキー生成
-    public function _make_unique_key($id)
-    {
-        return (!empty($id))? md5(uniqid($id. rand(),1)): '';
-    }
-
-    // メール送信
-    public function _my_sendmail($tempPath, $data, $from, $fromName, $to, $subject, $encode = 'UTF-8')
-    {
-        $message = $this->CI->parser->parse($tempPath, $data, TRUE);
-
-        $this->CI->email->from($from, mb_encode_mimeheader($fromName, $encode, 'B'));
-        $this->CI->email->to($to);
-        $this->CI->email->subject($subject);
-        $this->CI->email->message($message);
-        return $this->CI->email->send();
     }
 
     // 新規ユーザー登録の入力チェック
@@ -308,7 +256,7 @@ class Form {
                     'required',
                     'max_length[255]',
                     'valid_email',
-                    'is_unique[USER.MAIL]',
+//                    'is_unique[USER.MAIL]',
                 ],
                 'errors' => [
                     'required'    => '%s を入力してください。',

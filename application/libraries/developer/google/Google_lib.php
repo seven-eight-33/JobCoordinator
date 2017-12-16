@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form {
+class Google_lib {
 
     protected $CI;
 

@@ -7,15 +7,15 @@ class Confirm extends CI_Controller {
     const CONFIRM_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
     const CONFIRM_ERROR   = 3;	// 入力チェック失敗 → エラーメッセージをセットして会員登録入力画面出力
 
-    public $viewType = 0;
-    public $viewData = NULL;
+    protected $viewType = 0;
+    protected $viewData = NULL;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
-        $this->load->library('Form');
+        $this->load->library('controllers/Entry/entry_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -27,7 +27,7 @@ class Confirm extends CI_Controller {
     }
 
 /********************* ↓ main function ↓ *********************/
-    public function _preprocess()
+    protected function _preprocess()
     {
         $res = 0;
         if(empty($this->input->post('action'))){
@@ -42,17 +42,20 @@ class Confirm extends CI_Controller {
         return $res;
     }
 
-    public function _mainprocess()
+    protected function _mainprocess()
     {
         switch($this->viewType){
             case self::CONFIRM_START:
-                $this->viewData = $this->session->userdata();
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 $sex_list = $this->config->item('sex_list');
-                $this->viewData['sex_val'] = $sex_list[$this->session->userdata('sex')];
                 $pref_list = $this->config->item('pref_list');
-                $this->viewData['pref_val'] = $pref_list[$this->session->userdata('pref')];
-                $this->viewData['password_val'] = $this->session->userdata('mask_pass');
+
+                $confData = $this->session->userdata();
+                $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
+                $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
+                $confData['password_val'] = $this->session->userdata('mask_pass');
+                $this->viewData = $this->my_string->_myHtmlSanitize($confData);
+
+                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             case self::CONFIRM_SUCCESS:
                 switch($this->input->post('action')){
@@ -78,7 +81,7 @@ class Confirm extends CI_Controller {
         }
     }
 
-    public function _main_view()
+    protected function _main_view()
     {
         $this->load->view('header', $this->viewData);
         $this->load->view('entry/confirm', $this->viewData);
