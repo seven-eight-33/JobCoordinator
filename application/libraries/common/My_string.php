@@ -40,7 +40,7 @@ class My_string {
         if(empty($data)) return $data;
 
         if (is_array($data)) {
-            return array_map("_myHtmlSanitize", $data);
+            return array_map(array($this, "_myHtmlSanitize"), $data);
         } else {
             return $this->_myHtmlspecialchars($data);
         }
