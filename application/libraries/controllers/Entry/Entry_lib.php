@@ -128,12 +128,12 @@ class Entry_lib {
                 'name'       => $data['name1']. " ". $data['name2'],
                 'unique_url' => $this->CI->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
             );
-            $res = $this->my_mail->_my_sendmail('template/mail/reg_user',
-                                                 $mailData,
-                                                 $this->CI->config->item('reg_user_from_admin_mail'),
-                                                 $this->CI->config->item('reg_user_from_admin_name'),
-                                                 $data['mail'],
-                                                 $this->CI->config->item('reg_user_subject_user_temp'));
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user',
+                                                     $mailData,
+                                                     $this->CI->config->item('reg_user_from_admin_mail'),
+                                                     $this->CI->config->item('reg_user_from_admin_name'),
+                                                     $data['mail'],
+                                                     $this->CI->config->item('reg_user_subject_user_temp'));
         }
         return $res;
     }
