@@ -16,7 +16,7 @@ class Entry_lib {
      * @param string $str 文字列
      * @return string $str サニタイズ後の文字列
      */
-    public function _htmlSanitize($str)
+/*    public function _htmlSanitize($str)
     {
         if ($str == "") return $str;
 
@@ -48,7 +48,8 @@ class Entry_lib {
         }
         return $res;
     }
-
+*/
+/*
     // 半角英数記号チェック
     public function _alpha_numeric_symbol()
     {
@@ -61,7 +62,8 @@ class Entry_lib {
             return false;
         }
     }
-
+*/
+/*
     // パスワードマスク
     public function _make_pass($target)
     {
@@ -81,7 +83,24 @@ class Entry_lib {
         }
         return $result;
     }
-
+*/
+    // パスワードマスク
+    public function _make_pass($target)
+    {
+        $result = array();
+        if(!empty($target)){
+            // パスワードマスク
+            $result['mask_pass'] = $this->CI->my_string->_make_str_mask($target);
+            // salt生成
+            $result['salt'] = $this->CI->my_string->_make_salt();
+            // stretch生成
+            $result['stretch'] = $this->CI->my_string->_make_stretch();
+            // パスワードハッシュ化
+            $result['hash_pass'] = $this->CI->my_string->_my_hash($target, $result['salt'], $result['stretch']);
+        }
+        return $result;
+    }
+/*
     // パスワードハッシュ化
     public function _my_hash($base, $salt, $stretch = 0, $hash_type = 'sha512')
     {
@@ -92,13 +111,35 @@ class Entry_lib {
         }
         return $res_pass;
     }
-
+*/
     // ユニークキー生成
-    public function _make_unique_key($id)
+/*    public function _make_unique_key($id)
     {
         return (!empty($id))? md5(uniqid($id. rand(),1)): '';
     }
+*/
 
+    // ユーザーへサンクスメール送信
+    public function _user_sendMail($data)
+    {
+        $res = false;
+        if(!empty($data)){
+            $mailData = array(
+                'name'       => $data['name1']. " ". $data['name2'],
+                'unique_url' => $this->CI->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
+            );
+            $res = $this->my_mail->_my_sendmail('template/mail/reg_user',
+                                                 $mailData,
+                                                 $this->CI->config->item('reg_user_from_admin_mail'),
+                                                 $this->CI->config->item('reg_user_from_admin_name'),
+                                                 $data['mail'],
+                                                 $this->CI->config->item('reg_user_subject_user_temp'));
+        }
+        return $res;
+    }
+
+
+/*
     // メール送信
     public function _my_sendmail($tempPath, $data, $from, $fromName, $to, $subject, $encode = 'UTF-8')
     {
@@ -110,7 +151,7 @@ class Entry_lib {
         $this->CI->email->message($message);
         return $this->CI->email->send();
     }
-
+*/
     // 新規ユーザー登録の入力チェック
     public function _input_validation()
     {
@@ -336,7 +377,7 @@ class Entry_lib {
                     'required',
                     'min_length[6]',
                     'max_length[255]',
-                    ['_alpha_numeric_symbol', array($this, '_alpha_numeric_symbol')]
+                    ['_alpha_numeric_symbol', array($this->CI->my_check, '_alpha_numeric_symbol')]
                 ],
                 'errors' => [
                     'required'   => '%s を入力してください。',

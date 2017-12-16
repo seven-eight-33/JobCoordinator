@@ -44,12 +44,17 @@ class Complete extends CI_Controller {
             case self::COMPLETE_START:
                 // DB に仮登録
                 $inputData = $this->session->userdata();
-                $inputData['unique_key'] = $this->entry_lib->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+//                $inputData['unique_key'] = $this->entry_lib->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+                $inputData['unique_key'] = $this->my_string->_make_unique_key($this->modelUser->get_max_user_id() + 1);
+
+
                 $resInsert = $this->modelUser->insert_user_data($inputData);
                 if(empty($resInsert) || !$resInsert['res']) break;
 
                 // サンクスメール送信
-                $resMail = $this->_user_sendMail($inputData);
+//                $resMail = $this->_user_sendMail($inputData);
+                $resMail = $this->entry_lib->_user_sendMail($inputData);
+
                 // 管理者通知メール送信
 
                 // セッションクリア
@@ -73,7 +78,7 @@ class Complete extends CI_Controller {
 
 /********************* ↓ sub function ↓ *********************/
     // サンクスメール送信
-    public function _user_sendMail($data)
+/*    public function _user_sendMail($data)
     {
         $res = false;
         if(!empty($data)){
@@ -90,4 +95,5 @@ class Complete extends CI_Controller {
         }
         return $res;
     }
+*/
 }
