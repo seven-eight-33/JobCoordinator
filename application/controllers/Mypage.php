@@ -13,8 +13,7 @@ class Mypage extends CI_Controller {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->config->load('my_config');
-        $this->load->library('Form');
-        $this->load->library('login_lib');
+        $this->load->library('controllers/Login/login_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
