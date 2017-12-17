@@ -67,8 +67,8 @@ class User extends CI_Model
                             'SALT'            => $data['salt'],
                             'STRETCH'         => $data['stretch'],
                             'UNIQUE_KEY'      => $data['unique_key'],
-                            'CREATE_DATETIME' => 'now()',
-                            'UPDATE_DATETIME' => 'now()',
+                            'CREATE_DATETIME' => 'NOW()',
+                            'UPDATE_DATETIME' => 'NOW()',
                             'DEL_FLG'         => '0',
                           );
 
