@@ -67,10 +67,12 @@ class User extends CI_Model
                             'SALT'            => $data['salt'],
                             'STRETCH'         => $data['stretch'],
                             'UNIQUE_KEY'      => $data['unique_key'],
-                            'CREATE_DATETIME' => 'NOW()',
-                            'UPDATE_DATETIME' => 'NOW()',
+//                            'CREATE_DATETIME' => 'NOW()',
+//                            'UPDATE_DATETIME' => 'NOW()',
                             'DEL_FLG'         => '0',
                           );
+                          $this->db->set('CREATE_DATETIME', 'NOW()', FALSE);
+                          $this->db->set('UPDATE_DATETIME', 'NOW()', FALSE);
 
             $res['res'] = $this->db->insert('USER', $insertData);
             $res['insert_id'] = $this->db->insert_id();
