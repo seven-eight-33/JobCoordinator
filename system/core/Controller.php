@@ -77,10 +77,6 @@ class CI_Controller {
 
         $this->load =& load_class('Loader', 'core');
         $this->load->initialize();
-
-        var_dump($_SERVER['MAGIC_COUNT']);
-        exit;
-
         log_message('info', 'Controller Class Initialized');
     }
 
