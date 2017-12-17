@@ -39,7 +39,6 @@ class Mypage extends CI_Controller {
     {
         switch($this->viewType){
             case self::MYPAGE_START:
-                $this->viewData['title'] = 'JobCoordinator-Login';
                 break;
             default:
                 break;
@@ -48,9 +47,12 @@ class Mypage extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('common/header', $this->viewData);
-        $this->load->view('member/mypage', $this->viewData);
-        $this->load->view('common/footer', $this->viewData);
+        $device = $this->my_device->_get_user_device();
+        $this->viewData['title'] = 'JobCoordinator-MemberTop';
+
+        $this->load->view($device. '/common/header', $this->viewData);
+        $this->load->view($device. '/member/mypage', $this->viewData);
+        $this->load->view($device. '/common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

@@ -66,10 +66,12 @@ class Complete extends CI_Controller {
 
     protected function _main_view()
     {
+        $device = $this->my_device->_get_user_device();
         $this->viewData['title'] = 'JobCoordinator-Entry';
-        $this->load->view('common/header',  $this->viewData);
-        $this->load->view('entry/complete', $this->viewData);
-        $this->load->view('common/footer',  $this->viewData);
+
+        $this->load->view($device. '/common/header',  $this->viewData);
+        $this->load->view($device. '/entry/complete', $this->viewData);
+        $this->load->view($device. '/common/footer',  $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/
