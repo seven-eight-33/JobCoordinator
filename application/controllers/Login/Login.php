@@ -50,7 +50,6 @@ class Login extends CI_Controller {
     {
         switch($this->viewType){
             case self::LOGIN_START:
-                $this->viewData['title'] = 'JobCoordinator-Login';
                 $this->viewData['result'] = $this->modelUser->get_all_user();
                 break;
             case self::LOGIN_SUCCESS:
@@ -66,7 +65,6 @@ class Login extends CI_Controller {
                 redirect($redirectUrl);
                 break;
             case self::LOGIN_ERROR:
-                $this->viewData['title'] = 'JobCoordinator-Login';
                 break;
             default:
                 break;
@@ -75,9 +73,10 @@ class Login extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('login', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $this->viewData['title'] = 'JobCoordinator-Login';
+        $this->load->view('common/header', $this->viewData);
+        $this->load->view('login/login',   $this->viewData);
+        $this->load->view('common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

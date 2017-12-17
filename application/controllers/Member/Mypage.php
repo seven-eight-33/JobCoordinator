@@ -48,9 +48,9 @@ class Mypage extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('mypage', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $this->load->view('common/header', $this->viewData);
+        $this->load->view('member/mypage', $this->viewData);
+        $this->load->view('common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

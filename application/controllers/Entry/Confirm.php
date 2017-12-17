@@ -53,8 +53,6 @@ class Confirm extends CI_Controller {
                 $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $confData['password_val'] = $this->session->userdata('mask_pass');
                 $this->viewData = $this->my_string->_myHtmlSanitize($confData);
-
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             case self::CONFIRM_SUCCESS:
                 switch($this->input->post('action')){
@@ -73,7 +71,6 @@ class Confirm extends CI_Controller {
                 break;
             case self::CONFIRM_ERROR:
                 // システムエラー
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             default:
                 break;
@@ -82,9 +79,10 @@ class Confirm extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
+        $this->viewData['title'] = 'JobCoordinator-Entry';
+        $this->load->view('common/header', $this->viewData);
         $this->load->view('entry/confirm', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $this->load->view('common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

@@ -60,6 +60,6 @@ $route['login'] = 'Login/Login/index';
 $route['mypage'] = 'Member/Mypage/index';
 
 // Entry
-$route['entry/input'] = 'Entry/Input/index';
-$route['entry/confirm'] = 'Entry/Confirm/index';
+$route['entry/input']    = 'Entry/Input/index';
+$route['entry/confirm']  = 'Entry/Confirm/index';
 $route['entry/complete'] = 'Entry/Complete/index';

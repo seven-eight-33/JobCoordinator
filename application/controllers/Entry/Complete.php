@@ -58,7 +58,6 @@ class Complete extends CI_Controller {
                 break;
             case self::COMPLETE_ERROR:
                 // システムエラー
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             default:
                 break;
@@ -67,9 +66,10 @@ class Complete extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
+        $this->viewData['title'] = 'JobCoordinator-Entry';
+        $this->load->view('common/header',  $this->viewData);
         $this->load->view('entry/complete', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $this->load->view('common/footer',  $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/
