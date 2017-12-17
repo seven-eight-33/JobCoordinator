@@ -7,4 +7,8 @@ class My_device {
     {
     }
 
+    public function _get_user_device()
+    {
+        return 'pc';
+    }
 }

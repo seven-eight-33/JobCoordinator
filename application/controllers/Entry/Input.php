@@ -14,7 +14,6 @@ class Input extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->config->load('my_config');
         $this->load->library('controllers/Entry/entry_lib');
     }
 
@@ -51,8 +50,6 @@ class Input extends CI_Controller {
                     $_POST = $this->session->userdata();
                     $this->session->set_userdata('fix_flg', 0);
                 }
-                $this->viewData['title'] = 'JobCoordinator-Entry';
-                $this->viewData['pref_list'] = $this->config->item('pref_list');
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
@@ -61,8 +58,6 @@ class Input extends CI_Controller {
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:     // 入力エラー
-                $this->viewData['title'] = 'JobCoordinator-Entry';
-                $this->viewData['pref_list'] = $this->config->item('pref_list');
                 break;
             default:
                 break;
@@ -71,9 +66,13 @@ class Input extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('entry/input', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $device = $this->my_device->_get_user_device();
+        $this->viewData['title'] = 'JobCoordinator-Entry';
+        $this->viewData['pref_list'] = $this->config->item('pref_list');
+
+        $this->load->view($device. '/common/header', $this->viewData);
+        $this->load->view($device. '/entry/input',   $this->viewData);
+        $this->load->view($device. '/common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

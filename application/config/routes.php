@@ -54,12 +54,12 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // login
-$route['login'] = 'Login/index';
+$route['login'] = 'Login/Login/index';
 
 // Mypage
-$route['mypage'] = 'Mypage/index';
+$route['mypage'] = 'Member/Mypage/index';
 
 // Entry
-$route['entry/input'] = 'Entry/Input/index';
-$route['entry/confirm'] = 'Entry/Confirm/index';
+$route['entry/input']    = 'Entry/Input/index';
+$route['entry/confirm']  = 'Entry/Confirm/index';
 $route['entry/complete'] = 'Entry/Complete/index';

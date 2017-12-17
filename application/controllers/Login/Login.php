@@ -16,7 +16,6 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->config->load('my_config');
         $this->load->library('controllers/Login/login_lib');
     }
 
@@ -51,7 +50,6 @@ class Login extends CI_Controller {
     {
         switch($this->viewType){
             case self::LOGIN_START:
-                $this->viewData['title'] = 'JobCoordinator-Login';
                 $this->viewData['result'] = $this->modelUser->get_all_user();
                 break;
             case self::LOGIN_SUCCESS:
@@ -67,7 +65,6 @@ class Login extends CI_Controller {
                 redirect($redirectUrl);
                 break;
             case self::LOGIN_ERROR:
-                $this->viewData['title'] = 'JobCoordinator-Login';
                 break;
             default:
                 break;
@@ -76,9 +73,12 @@ class Login extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('login', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $device = $this->my_device->_get_user_device();
+        $this->viewData['title'] = 'JobCoordinator-Login';
+
+        $this->load->view($device. '/common/header', $this->viewData);
+        $this->load->view($device. '/login/login',   $this->viewData);
+        $this->load->view($device. '/common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

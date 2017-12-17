@@ -14,7 +14,6 @@ class Complete extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->config->load('my_config');
         $this->load->library('controllers/Entry/entry_lib');
     }
 
@@ -59,7 +58,6 @@ class Complete extends CI_Controller {
                 break;
             case self::COMPLETE_ERROR:
                 // システムエラー
-                $this->viewData['title'] = 'JobCoordinator-Entry';
                 break;
             default:
                 break;
@@ -68,9 +66,12 @@ class Complete extends CI_Controller {
 
     protected function _main_view()
     {
-        $this->load->view('header', $this->viewData);
-        $this->load->view('entry/complete', $this->viewData);
-        $this->load->view('footer', $this->viewData);
+        $device = $this->my_device->_get_user_device();
+        $this->viewData['title'] = 'JobCoordinator-Entry';
+
+        $this->load->view($device. '/common/header',  $this->viewData);
+        $this->load->view($device. '/entry/complete', $this->viewData);
+        $this->load->view($device. '/common/footer',  $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/

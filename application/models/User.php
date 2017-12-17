@@ -47,27 +47,31 @@ class User extends CI_Model
         $res = array();
         if(!empty($data)){
             $insertData = array(
-                            'LOGIN_ID'   => $data['user_id'],
-                            'PASSWORD'   => $data['hash_pass'],
-                            'USER_TYPE'  => '0',
-                            'NAME1'      => $data['name1'],
-                            'NAME2'      => $data['name2'],
-                            'NAME1_KANA' => $data['name1_kana'],
-                            'NAME2_KANA' => $data['name2_kana'],
-                            'SEX'        => $data['sex'],
-                            'ZIP1'       => $data['zip1'],
-                            'ZIP2'       => $data['zip2'],
-                            'PREF'       => $data['pref'],
-                            'ADDRESS1'   => $data['address1'],
-                            'ADDRESS2'   => $data['address2'],
-                            'TEL1'       => $data['tel1'],
-                            'TEL2'       => $data['tel2'],
-                            'TEL3'       => $data['tel3'],
-                            'MAIL'       => $data['mail'],
-                            'SALT'       => $data['salt'],
-                            'STRETCH'    => $data['stretch'],
-                            'UNIQUE_KEY' => $data['unique_key'],
+                            'LOGIN_ID'        => $data['user_id'],
+                            'PASSWORD'        => $data['hash_pass'],
+                            'USER_TYPE'       => '0',
+                            'NAME1'           => $data['name1'],
+                            'NAME2'           => $data['name2'],
+                            'NAME1_KANA'      => $data['name1_kana'],
+                            'NAME2_KANA'      => $data['name2_kana'],
+                            'SEX'             => $data['sex'],
+                            'ZIP1'            => $data['zip1'],
+                            'ZIP2'            => $data['zip2'],
+                            'PREF'            => $data['pref'],
+                            'ADDRESS1'        => $data['address1'],
+                            'ADDRESS2'        => $data['address2'],
+                            'TEL1'            => $data['tel1'],
+                            'TEL2'            => $data['tel2'],
+                            'TEL3'            => $data['tel3'],
+                            'MAIL'            => $data['mail'],
+                            'SALT'            => $data['salt'],
+                            'STRETCH'         => $data['stretch'],
+                            'UNIQUE_KEY'      => $data['unique_key'],
+                            'DEL_FLG'         => '0',
                           );
+            // 配列内で now() しても何故か入らないので一旦↓これで
+            $this->db->set('CREATE_DATETIME', 'NOW()', FALSE);
+            $this->db->set('UPDATE_DATETIME', 'NOW()', FALSE);
 
             $res['res'] = $this->db->insert('USER', $insertData);
             $res['insert_id'] = $this->db->insert_id();
