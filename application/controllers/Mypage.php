@@ -12,7 +12,6 @@ class Mypage extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->config->load('my_config');
         $this->load->library('controllers/Login/login_lib');
     }
 
