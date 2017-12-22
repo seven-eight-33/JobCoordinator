@@ -26,7 +26,7 @@ class Mypage extends CI_Controller {
     protected function _preprocess()
     {
         // ログインチェック
-        $this->login_lib->_is_logged_in($_SERVER["REQUEST_URI"]);
+        $this->login_lib->_is_logged_in('mypage');
 
         $res = 0;
         if(empty($this->input->post('action'))){
