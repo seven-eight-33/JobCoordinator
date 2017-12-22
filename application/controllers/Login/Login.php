@@ -16,7 +16,6 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->load->library('controllers/Login/login_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/

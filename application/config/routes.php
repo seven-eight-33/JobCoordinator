@@ -56,6 +56,9 @@ $route['translate_uri_dashes'] = FALSE;
 // login
 $route['login'] = 'Login/Login/index';
 
+// logout
+$route['logout'] = 'Login/Logout/index';
+
 // Mypage
 $route['mypage'] = 'Member/Mypage/index';
 
