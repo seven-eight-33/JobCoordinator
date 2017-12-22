@@ -95,4 +95,12 @@ class Login_lib {
             redirect('login');
         }
     }
+
+    public function _my_logout()
+    {
+        if(!empty($this->CI->session->userdata())){
+            // セッションクリア
+            $this->session->sess_destroy();
+        }
+    }
 }
