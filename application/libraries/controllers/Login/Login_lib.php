@@ -100,7 +100,7 @@ class Login_lib {
     {
         if(!empty($this->CI->session->userdata())){
             // セッションクリア
-            $this->session->sess_destroy();
+            $this->CI->session->sess_destroy();
         }
     }
 }
