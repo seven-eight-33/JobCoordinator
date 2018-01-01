@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Top extends CI_Controller {
+class Test extends CI_Controller {
 
     const TOP_START = 1;	// トップ画面出力
 
     protected $viewType = 0;
     protected $viewData = NULL;
+    protected $uKey = '';
 
     public function __construct()
     {
@@ -15,8 +16,12 @@ class Top extends CI_Controller {
     }
 
 /********************* ↓ routes function ↓ *********************/
-    public function index()
+    public function index($key)
     {
+        $this->uKey = $key;
+        var_dump($this->uKey);
+        exit;
+
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
         $this->_main_view();
