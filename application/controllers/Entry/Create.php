@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Create extends CI_Controller {
+class Complete extends CI_Controller {
 
     const COMPLETE_START   = 1;	// 会員仮登録完了画面出力
     const COMPLETE_SUCCESS = 2;	// 入力チェック成功 → 会員登録完了画面へ
