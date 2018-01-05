@@ -46,6 +46,24 @@ class Entry_lib {
         return $res;
     }
 
+    // ユーザーへサンクスメール送信(本登録完了)
+    public function _user_sendMail_create($data)
+    {
+        $res = false;
+        if(!empty($data)){
+            $mailData = array(
+                'name'       => $data['NAME1']. " ". $data['NAME2'],
+            );
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user_create',
+                                                     $mailData,
+                                                     $this->CI->config->item('reg_user_from_admin_mail'),
+                                                     $this->CI->config->item('reg_user_from_admin_name'),
+                                                     $data['MAIL'],
+                                                     $this->CI->config->item('reg_user_subject_user_temp'));
+        }
+        return $res;
+    }
+
     // ユニークキーチェック
     // ユニークキーを基に取得したユーザーデータを返却、エラーの場合はfalseを返却
     public function _check_unique_key($targetKey)
