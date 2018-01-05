@@ -34,7 +34,7 @@ class Entry_lib {
         if(!empty($data)){
             $mailData = array(
                 'name'       => $data['name1']. " ". $data['name2'],
-                'unique_url' => $this->CI->config->item('base_url'). 'entry/create?key='. $data['unique_key'],
+                'unique_url' => $this->CI->config->item('base_url'). 'entry/create/'. $data['unique_key'],
             );
             $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user',
                                                      $mailData,
@@ -44,6 +44,26 @@ class Entry_lib {
                                                      $this->CI->config->item('reg_user_subject_user_temp'));
         }
         return $res;
+    }
+
+    // ユニークキーチェック
+    // ユニークキーを基に取得したユーザーデータを返却、エラーの場合はfalseを返却
+    public function _check_unique_key($targetKey)
+    {
+        // 未入力チェック
+        if(empty($targetKey)) return false;
+
+        // 32桁チェック
+        if(mb_strlen($targetKey) != 32) return false;
+
+        // 半角英数チェック
+        if(!ctype_alnum($targetKey)) return false;
+
+        // DB存在チェック
+        $resData = $this->CI->modelUser->get_user_by_ukey($targetKey);
+        if(empty($resData)) return false;
+
+        return $resData;
     }
 
     // 半角英数記号チェック

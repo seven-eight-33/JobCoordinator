@@ -66,7 +66,7 @@ $route['mypage'] = 'Member/Mypage/index';
 $route['entry/input']    = 'Entry/Input/index';
 $route['entry/confirm']  = 'Entry/Confirm/index';
 $route['entry/complete'] = 'Entry/Complete/index';
-$route['entry/create']   = 'Entry/Create/index';
+$route['entry/create/(:any)'] = 'Entry/Create/index/$1';
 
 // test
 $route['test/(:any)']   = 'Test/index/$1';
