@@ -50,7 +50,7 @@ class Create extends CI_Controller {
                 // DB に本登録(フラグ更新)
                 $res = $this->modelUser->update_user_data($this->userData['LOGIN_ID']);
                 // サンクスメール送信
-                $resMail = $this->entry_lib->_user_sendMail($this->userData);
+                $resMail = $this->entry_lib->_user_sendMail_create($this->userData);
                 // 管理者通知メール送信
                 // ログインセッション発行
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
