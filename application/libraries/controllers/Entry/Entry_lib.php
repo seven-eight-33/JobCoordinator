@@ -50,18 +50,19 @@ class Entry_lib {
     // ユニークキーを基に取得したユーザーデータを返却、エラーの場合はfalseを返却
     public function _check_unique_key($targetKey)
     {
+        $resData = array();
+
         // 未入力チェック
-        if(empty($targetKey)) return false;
+        if(empty($targetKey)) return $resData;
 
         // 32桁チェック
-        if(mb_strlen($targetKey) != 32) return false;
+        if(mb_strlen($targetKey) != 32) return $resData;
 
         // 半角英数チェック
-        if(!ctype_alnum($targetKey)) return false;
+        if(!ctype_alnum($targetKey)) return $resData;
 
         // DB存在チェック
         $resData = $this->CI->modelUser->get_user_by_ukey($targetKey);
-        if(empty($resData)) return false;
 
         return $resData;
     }

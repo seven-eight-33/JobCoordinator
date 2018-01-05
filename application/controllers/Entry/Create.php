@@ -33,7 +33,7 @@ class Create extends CI_Controller {
     {
         $res = 0;
         $this->userData = $this->entry_lib->_check_unique_key($this->uKey);
-        if(!$this->userData){
+        if(!empty($this->userData)){
             $res = self::CREATE_SUCCESS;
         }else{
             $res = self::CREATE_ERROR;
