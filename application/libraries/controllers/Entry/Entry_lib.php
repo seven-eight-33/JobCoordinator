@@ -52,14 +52,15 @@ class Entry_lib {
         $res = false;
         if(!empty($data)){
             $mailData = array(
-                'name'       => $data['NAME1']. " ". $data['NAME2'],
+                'name'      => $data['NAME1']. " ". $data['NAME2'],
+                'login_url' => base_url(). "login",
             );
             $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user_create',
                                                      $mailData,
                                                      $this->CI->config->item('reg_user_from_admin_mail'),
                                                      $this->CI->config->item('reg_user_from_admin_name'),
                                                      $data['MAIL'],
-                                                     $this->CI->config->item('reg_user_subject_user_temp'));
+                                                     $this->CI->config->item('reg_user_subject_user'));
         }
         return $res;
     }

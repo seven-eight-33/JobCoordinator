@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH. 'controllers/Setting/env.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+var_dump($_SERVER['DB_NAME']);
+exit;
 $config['base_url'] = 'http://h-matsuya.sakura.ne.jp/JobCoordinator/';
 
 /*
