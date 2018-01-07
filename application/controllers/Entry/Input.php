@@ -54,7 +54,7 @@ class Input extends CI_Controller {
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
                 $userInput = array_merge($this->input->post(), $this->entry_lib->_make_pass($this->input->post('password')));
-                $this->session->set_userdata($userInput);
+                $this->session->set_userdata('entry_data', $userInput);
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:     // 入力エラー

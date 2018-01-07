@@ -32,7 +32,7 @@ class Confirm extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::CONFIRM_START;
         }else{
-            if(!empty($this->session->userdata())){
+            if(!empty($this->session->userdata('entry_data'))){
                 $res = self::CONFIRM_SUCCESS;
             }else{
                 $res = self::CONFIRM_ERROR;
@@ -48,7 +48,14 @@ class Confirm extends CI_Controller {
                 $sex_list = $this->config->item('sex_list');
                 $pref_list = $this->config->item('pref_list');
 
-                $confData = $this->session->userdata();
+                $confData = $this->session->userdata('entry_data');
+
+
+var_dump($confData);
+exit;
+
+
+
                 $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
                 $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
                 $confData['password_val'] = $this->session->userdata('mask_pass');
