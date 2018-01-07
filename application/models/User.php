@@ -4,7 +4,7 @@ class User extends CI_Model
     public function __construct()
     {
         parent::__construct();
-                $this->load->database();
+        $this->load->database();
     }
 
     public function get_all_user()
@@ -18,7 +18,7 @@ class User extends CI_Model
         $resData = array();
         $where = array(
                     'LOGIN_ID' => $loginId,
-//                    'REG_STATUS >=' => 1,
+                    'REG_STATUS >=' => 1,
                     'DEL_FLG'  => 0,
                 );
         $this->db->select('*');
@@ -39,7 +39,7 @@ class User extends CI_Model
         $resData = array();
         $where = array(
                     'UNIQUE_KEY' => $uKey,
-//                    'REG_STATUS >=' => 1,
+                    'REG_STATUS =' => 0,
                     'DEL_FLG'  => 0,
                 );
         $this->db->select('*');
