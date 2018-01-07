@@ -29,7 +29,7 @@ class Complete extends CI_Controller {
     protected function _preprocess()
     {
         $res = 0;
-        if(!empty($this->session->userdata('entry_data'))){
+        if(!empty($this->session->userdata($this->config->item('sess_entry')))){
             $res = self::COMPLETE_START;
         }else{
             $res = self::COMPLETE_ERROR;
@@ -42,7 +42,7 @@ class Complete extends CI_Controller {
         switch($this->viewType){
             case self::COMPLETE_START:
                 // DB に仮登録
-                $inputData = $this->session->userdata('entry_data');
+                $inputData = $this->session->userdata($this->config->item('sess_entry'));
                 $inputData['unique_key'] = $this->my_string->_make_unique_key($this->modelUser->get_max_user_id() + 1);
 
                 $resInsert = $this->modelUser->insert_user_data($inputData);
@@ -52,7 +52,7 @@ class Complete extends CI_Controller {
                 $resMail = $this->entry_lib->_user_sendMail($inputData);
 
                 // セッションクリア
-                $this->session->unset_userdata('entry_data');
+                $this->session->unset_userdata($this->config->item('sess_entry'));
                 break;
             case self::COMPLETE_ERROR:
                 // システムエラー → 入力画面へリダイレクト

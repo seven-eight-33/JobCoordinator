@@ -83,7 +83,7 @@ class Login_lib {
 
     public function _is_logged_in($backUrl)
     {
-        $user = $this->CI->session->userdata('member_data');
+        $user = $this->CI->session->userdata($this->CI->config->item('sess_member'));
         if(isset($user['magic_code']) && !empty($user['magic_code']) && $this->_check_magic_code($user['magic_code'], $user['LOGIN_ID'], $user['MAIL'])){
             return true;
         }else{
@@ -98,9 +98,9 @@ class Login_lib {
 
     public function _my_logout()
     {
-        if(!empty($this->CI->session->userdata('member_data'))){
+        if(!empty($this->CI->session->userdata($this->CI->config->item('sess_member')))){
             // セッションクリア
-            $this->CI->session->unset_userdata('member_data');
+            $this->CI->session->unset_userdata($this->CI->config->item('sess_member'));
         }
     }
 }

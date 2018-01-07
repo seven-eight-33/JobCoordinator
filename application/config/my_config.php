@@ -13,6 +13,10 @@ $config['magic_count'] = $_SERVER['MAGIC_COUNT'];
 $config['magic_code']  = $_SERVER['MAGIC_CODE'];
 $config['magic_type']  = $_SERVER['MAGIC_TYPE'];
 
+// session 名
+$config['sess_entry']  = 'entry_data';   // 会員登録時
+$config['sess_member'] = 'member_data';   // ログイン
+
 $config['sex_list'] = array(
     1 => '男性',
     2 => '女性',
