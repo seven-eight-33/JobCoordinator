@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     アクセスした URL が正しくありません。<br>
                     URL を確認し、再度アクセスしてください。
                 </p>
-                <p><a href="/">トップへ</a></p>
+                <p><a href="<?php echo $url_top ?>">トップへ</a></p>
             <?php endif; ?>
         </div>
     </div>
