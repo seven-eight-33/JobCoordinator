@@ -24,9 +24,7 @@ require_once APPPATH. 'controllers/Setting/env.php';
 | a PHP script and you can easily do that on your own.
 |
 */
-var_dump($_SERVER['DB_NAME']);
-exit;
-$config['base_url'] = 'http://h-matsuya.sakura.ne.jp/JobCoordinator/';
+$config['base_url'] = $_SERVER['BASE_URL'];
 
 /*
 |--------------------------------------------------------------------------
@@ -327,7 +325,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '4KOOtLbWCjtfqLIijkU2KcvFGAehwV3r';
+$config['encryption_key'] = $_SERVER['ENCRYPTION_KEY'];
 
 /*
 |--------------------------------------------------------------------------
