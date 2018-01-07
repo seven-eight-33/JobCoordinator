@@ -11,13 +11,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     会員本登録が完了しました。<br>
                     下記ボタンからマイページへアクセスし、JobCoordinator を始めてください！
                 </p>
-                <p><a href="">マイページへ</a></p>
+                <p><a href="<?php echo $url_mypage ?>">マイページへ</a></p>
             <?php else: ?>
                 <p>
                     アクセスした URL が正しくありません。<br>
                     URL を確認し、再度アクセスしてください。
                 </p>
-                <p><a href="">トップへ</a></p>
+                <p><a href="/">トップへ</a></p>
             <?php endif; ?>
         </div>
     </div>

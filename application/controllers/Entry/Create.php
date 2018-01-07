@@ -69,6 +69,7 @@ class Create extends CI_Controller {
         $device = $this->my_device->_get_user_device();
         $this->viewData['title'] = 'JobCoordinator-Entry';
         $this->viewData['checkRes'] = $this->checkRes;
+        $this->viewData['url_mypage'] = base_url() .'mypage';
 
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/entry/create',  $this->viewData);
