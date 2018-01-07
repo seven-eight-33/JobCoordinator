@@ -55,7 +55,7 @@ class Create extends CI_Controller {
                 $resMail = $this->entry_lib->_admin_sendMail_create($this->userData);
                 // ログインセッション発行
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
-                $this->session->set_userdata($this->userData);
+                $this->session->set_userdata('member_data', $this->userData);
                 break;
             case self::CREATE_ERROR:
                 // バリデートエラー

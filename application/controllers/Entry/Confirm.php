@@ -49,16 +49,9 @@ class Confirm extends CI_Controller {
                 $pref_list = $this->config->item('pref_list');
 
                 $confData = $this->session->userdata('entry_data');
-
-
-var_dump($confData);
-exit;
-
-
-
-                $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
-                $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
-                $confData['password_val'] = $this->session->userdata('mask_pass');
+                $confData['sex_val'] = $sex_list[$confData['sex']];
+                $confData['pref_val'] = $pref_list[$confData['pref']];
+                $confData['password_val'] = $confData['mask_pass'];
                 $this->viewData = $this->my_string->_myHtmlSanitize($confData);
                 break;
             case self::CONFIRM_SUCCESS:

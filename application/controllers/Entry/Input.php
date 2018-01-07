@@ -47,8 +47,8 @@ class Input extends CI_Controller {
             case self::INPUT_START:     // 初期表示
                 if($this->session->has_userdata('fix_flg') && $this->session->userdata('fix_flg') == 1){
                     // 確認画面からの画面遷移の場合(修正)入力値を復元させる
-                    $_POST = $this->session->userdata();
-                    $this->session->set_userdata('fix_flg', 0);
+                    $_POST = $this->session->userdata('entry_data');
+                    $this->session->unset_userdata('fix_flg');
                 }
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
