@@ -60,7 +60,7 @@ class Login extends CI_Controller {
                 }
                 // session 操作
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
-                $this->session->set_userdata($this->userData);
+                $this->session->set_userdata($this->config->item('sess_member'), $this->userData);
                 redirect($redirectUrl);
                 break;
             case self::LOGIN_ERROR:

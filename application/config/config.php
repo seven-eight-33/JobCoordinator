@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH. 'controllers/Setting/env.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://h-matsuya.sakura.ne.jp/JobCoordinator/';
+$config['base_url'] = $_SERVER['BASE_URL'];
 
 /*
 |--------------------------------------------------------------------------
@@ -324,7 +325,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '4KOOtLbWCjtfqLIijkU2KcvFGAehwV3r';
+$config['encryption_key'] = $_SERVER['ENCRYPTION_KEY'];
 
 /*
 |--------------------------------------------------------------------------

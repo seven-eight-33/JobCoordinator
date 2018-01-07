@@ -47,14 +47,14 @@ class Input extends CI_Controller {
             case self::INPUT_START:     // 初期表示
                 if($this->session->has_userdata('fix_flg') && $this->session->userdata('fix_flg') == 1){
                     // 確認画面からの画面遷移の場合(修正)入力値を復元させる
-                    $_POST = $this->session->userdata();
-                    $this->session->set_userdata('fix_flg', 0);
+                    $_POST = $this->session->userdata($this->config->item('sess_entry'));
+                    $this->session->unset_userdata('fix_flg');
                 }
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 // session 登録
                 $userInput = array_merge($this->input->post(), $this->entry_lib->_make_pass($this->input->post('password')));
-                $this->session->set_userdata($userInput);
+                $this->session->set_userdata($this->config->item('sess_entry'), $userInput);
                 redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:     // 入力エラー
@@ -67,7 +67,7 @@ class Input extends CI_Controller {
     protected function _main_view()
     {
         $device = $this->my_device->_get_user_device();
-        $this->viewData['title'] = 'JobCoordinator-Entry';
+        $this->viewData['title']     = 'JobCoordinator-Entry';
         $this->viewData['pref_list'] = $this->config->item('pref_list');
 
         $this->load->view($device. '/common/header', $this->viewData);

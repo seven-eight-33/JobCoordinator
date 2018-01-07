@@ -27,7 +27,7 @@ class Logout extends CI_Controller {
         $this->login_lib->_my_logout();
 
         // TOP にリダイレクト
-        redirect($this->config->item('base_url'));
+        redirect(base_url());
     }
 
     protected function _main_view()
