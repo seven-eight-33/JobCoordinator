@@ -36,7 +36,7 @@ class Entry_lib {
                 'name'       => $data['name1']. " ". $data['name2'],
                 'unique_url' => $this->CI->config->item('base_url'). 'entry/create/'. $data['unique_key'],
             );
-            $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user',
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/entry/reg_user',
                                                      $mailData,
                                                      $this->CI->config->item('reg_user_from_admin_mail'),
                                                      $this->CI->config->item('reg_user_from_admin_name'),
@@ -55,12 +55,32 @@ class Entry_lib {
                 'name'      => $data['NAME1']. " ". $data['NAME2'],
                 'login_url' => base_url(). "login",
             );
-            $res = $this->CI->my_mail->_my_sendmail('template/mail/reg_user_create',
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/entry/reg_user_create',
                                                      $mailData,
                                                      $this->CI->config->item('reg_user_from_admin_mail'),
                                                      $this->CI->config->item('reg_user_from_admin_name'),
                                                      $data['MAIL'],
                                                      $this->CI->config->item('reg_user_subject_user'));
+        }
+        return $res;
+    }
+
+    // 管理者へ会員登録通知メール送信(本登録完了)
+    public function _admin_sendMail_create($data)
+    {
+        $res = false;
+        if(!empty($data)){
+            $mailData = array(
+                'id'        => $data['ID'],
+                'user_type' => $data['USER_TYPE'],
+                'name'      => $data['NAME1']. " ". $data['NAME2'],
+            );
+            $res = $this->CI->my_mail->_my_sendmail('template/mail/entry/reg_user_create_to_admin',
+                                                     $mailData,
+                                                     $this->CI->config->item('reg_user_from_admin_mail'),
+                                                     $this->CI->config->item('reg_user_from_admin_name'),
+                                                     $this->CI->config->item('reg_user_from_admin_mail'),
+                                                     $this->CI->config->item('reg_user_subject_admin'));
         }
         return $res;
     }

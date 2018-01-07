@@ -67,7 +67,7 @@ class Input extends CI_Controller {
     protected function _main_view()
     {
         $device = $this->my_device->_get_user_device();
-        $this->viewData['title'] = 'JobCoordinator-Entry';
+        $this->viewData['title']     = 'JobCoordinator-Entry';
         $this->viewData['pref_list'] = $this->config->item('pref_list');
 
         $this->load->view($device. '/common/header', $this->viewData);

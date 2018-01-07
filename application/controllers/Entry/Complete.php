@@ -51,13 +51,12 @@ class Complete extends CI_Controller {
                 // サンクスメール送信
                 $resMail = $this->entry_lib->_user_sendMail($inputData);
 
-                // 管理者通知メール送信
-
                 // セッションクリア
                 $this->session->sess_destroy();
                 break;
             case self::COMPLETE_ERROR:
-                // システムエラー
+                // システムエラー → 入力画面へリダイレクト
+                redirect('entry/input');
                 break;
             default:
                 break;

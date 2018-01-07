@@ -52,6 +52,7 @@ class Create extends CI_Controller {
                 // サンクスメール送信
                 $resMail = $this->entry_lib->_user_sendMail_create($this->userData);
                 // 管理者通知メール送信
+                $resMail = $this->entry_lib->_admin_sendMail_create($this->userData);
                 // ログインセッション発行
                 $this->userData['magic_code'] = $this->login_lib->_create_magic_code($this->userData['LOGIN_ID'], $this->userData['MAIL']);
                 $this->session->set_userdata($this->userData);
@@ -67,10 +68,10 @@ class Create extends CI_Controller {
     protected function _main_view()
     {
         $device = $this->my_device->_get_user_device();
-        $this->viewData['title'] = 'JobCoordinator-Entry';
-        $this->viewData['checkRes'] = $this->checkRes;
+        $this->viewData['title']      = 'JobCoordinator-Entry';
+        $this->viewData['checkRes']   = $this->checkRes;
         $this->viewData['url_mypage'] = base_url() .'mypage';
-        $this->viewData['url_top'] = base_url();
+        $this->viewData['url_top']    = base_url();
 
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/entry/create',  $this->viewData);

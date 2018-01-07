@@ -70,7 +70,8 @@ class Confirm extends CI_Controller {
                 }
                 break;
             case self::CONFIRM_ERROR:
-                // システムエラー
+                // システムエラー → 入力画面へリダイレクト
+                redirect('entry/input');
                 break;
             default:
                 break;
