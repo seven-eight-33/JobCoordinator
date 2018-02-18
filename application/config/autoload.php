@@ -71,6 +71,7 @@ $autoload['libraries'] = array( 'form_validation',
                                 'common/my_mail',
                                 'common/my_session',
                                 'common/my_string',
+                                'controllers/Login/login_lib',
                             );
 
 /*

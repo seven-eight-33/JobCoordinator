@@ -32,7 +32,7 @@ class Confirm extends CI_Controller {
         if(empty($this->input->post('action'))){
             $res = self::CONFIRM_START;
         }else{
-            if(!empty($this->session->userdata())){
+            if(!empty($this->session->userdata($this->config->item('sess_entry')))){
                 $res = self::CONFIRM_SUCCESS;
             }else{
                 $res = self::CONFIRM_ERROR;
@@ -48,10 +48,10 @@ class Confirm extends CI_Controller {
                 $sex_list = $this->config->item('sex_list');
                 $pref_list = $this->config->item('pref_list');
 
-                $confData = $this->session->userdata();
-                $confData['sex_val'] = $sex_list[$this->session->userdata('sex')];
-                $confData['pref_val'] = $pref_list[$this->session->userdata('pref')];
-                $confData['password_val'] = $this->session->userdata('mask_pass');
+                $confData = $this->session->userdata($this->config->item('sess_entry'));
+                $confData['sex_val'] = $sex_list[$confData['sex']];
+                $confData['pref_val'] = $pref_list[$confData['pref']];
+                $confData['password_val'] = $confData['mask_pass'];
                 $this->viewData = $this->my_string->_myHtmlSanitize($confData);
                 break;
             case self::CONFIRM_SUCCESS:
@@ -70,7 +70,8 @@ class Confirm extends CI_Controller {
                 }
                 break;
             case self::CONFIRM_ERROR:
-                // システムエラー
+                // システムエラー → 入力画面へリダイレクト
+                redirect('entry/input');
                 break;
             default:
                 break;

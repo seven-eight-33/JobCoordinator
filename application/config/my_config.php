@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH. 'controllers/Setting/env.php';
 
-$config['reg_user_to_admin_mail']     = 'reon1022@gmail.com';
-$config['reg_user_from_admin_mail']   = 'reon1022@gmail.com';
+$config['reg_user_to_admin_mail']     = $_SERVER['ADMIN_MAIL'];
+$config['reg_user_from_admin_mail']   = $_SERVER['ADMIN_MAIL'];
 $config['reg_user_from_admin_name']   = 'JobCoordinator';
 $config['reg_user_subject_user_temp'] = 'JobCoordinatorの仮登録が完了しました。';
 $config['reg_user_subject_user']      = 'JobCoordinatorの本登録が完了しました。';
@@ -12,6 +12,10 @@ $config['reg_user_subject_admin']     = 'JobCoordinator会員登録通知';
 $config['magic_count'] = $_SERVER['MAGIC_COUNT'];
 $config['magic_code']  = $_SERVER['MAGIC_CODE'];
 $config['magic_type']  = $_SERVER['MAGIC_TYPE'];
+
+// session 名
+$config['sess_entry']  = 'entry_data';   // 会員登録時
+$config['sess_member'] = 'member_data';   // ログイン
 
 $config['sex_list'] = array(
     1 => '男性',

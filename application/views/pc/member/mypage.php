@@ -11,4 +11,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <input name="LOGIN_ID" type="text" value="" />
         <button type='submit' name='action' value='1'>login</button>
     </form>
+    <a href='http://h-matsuya.sakura.ne.jp/JobCoordinator/logout'>logout</a>
 </div>
