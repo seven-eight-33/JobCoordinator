@@ -56,6 +56,9 @@ $route['translate_uri_dashes'] = FALSE;
 // login
 $route['login'] = 'Login/Login/index';
 
+// logout
+$route['logout'] = 'Login/Logout/index';
+
 // Mypage
 $route['mypage'] = 'Member/Mypage/index';
 
@@ -63,3 +66,7 @@ $route['mypage'] = 'Member/Mypage/index';
 $route['entry/input']    = 'Entry/Input/index';
 $route['entry/confirm']  = 'Entry/Confirm/index';
 $route['entry/complete'] = 'Entry/Complete/index';
+$route['entry/create/(:any)'] = 'Entry/Create/index/$1';
+
+// test
+$route['test/(:any)']   = 'Test/index/$1';
