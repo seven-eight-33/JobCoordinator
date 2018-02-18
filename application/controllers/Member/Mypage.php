@@ -12,7 +12,6 @@ class Mypage extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
-        $this->load->library('controllers/Login/login_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -26,6 +25,9 @@ class Mypage extends CI_Controller {
 /********************* ↓ main function ↓ *********************/
     protected function _preprocess()
     {
+        // ログインチェック
+        $this->login_lib->_is_logged_in('mypage');
+
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::MYPAGE_START;
