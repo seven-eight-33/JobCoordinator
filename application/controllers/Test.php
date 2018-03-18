@@ -47,8 +47,6 @@ class Test extends CI_Controller {
         switch($this->viewType){
             case self::INPUT_START:     // 初期表示
                 $this->resData = $this->calender_lib->_get_schedule();
-                var_dump($this->resData);
-                exit;
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 break;
@@ -62,7 +60,8 @@ class Test extends CI_Controller {
     protected function _main_view()
     {
         $device = $this->my_device->_get_user_device();
-        $this->viewData['title']     = 'JobCoordinator-Entry';
+        $this->viewData['title']   = 'JobCoordinator-Entry';
+        $this->viewData['results'] = $this->resData;
 
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/test',          $this->viewData);
