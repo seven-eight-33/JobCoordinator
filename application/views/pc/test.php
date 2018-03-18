@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div id="body">
         <p>test_contents！</p>
-        <?php foreach ($result as $schedule): ?>
+        <?php foreach ($results as $schedule): ?>
             <p><?php echo $schedule->start; ?>：<?php echo $schedule->summary; ?></p>
         <?php endforeach; ?>
     </div>
