@@ -113,8 +113,10 @@ class Calender_lib {
                 if (empty($start)) {
                     $start = $event->start->date;
                 }
-                $resData[]['start']   = $start;
-                $resData[]['summary'] = $event->getSummary();
+                $resData[] = array(
+                    'start'   => $start,
+                    'summary' => $event->getSummary(),
+                );
             }
         }
         return $resData;
