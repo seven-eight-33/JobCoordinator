@@ -93,7 +93,7 @@ class Calender_lib {
     public function _get_schedule()
     {
         // Get the API client and construct the service object.
-        $client = getClient();
+        $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
 
         // Print the next 10 events on the user's calendar.
