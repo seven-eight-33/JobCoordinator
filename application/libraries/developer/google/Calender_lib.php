@@ -2,9 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once __DIR__ . '/vendor/autoload.php';
 
-date_default_timezone_set('Asia/Tokyo');
 define('APPLICATION_NAME', 'JobCoordinator');
-define('CREDENTIALS_PATH', __DIR__ . '/calendar-php-quickstart.json');
+define('CREDENTIALS_PATH', __DIR__ . '/calendar-php.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/calendar-php-quickstart.json
@@ -22,15 +21,7 @@ class Calender_lib {
     public function __construct()
     {
         $this->CI =& get_instance();
-/*
         date_default_timezone_set('Asia/Tokyo');
-        define('APPLICATION_NAME', 'JobCoordinator');
-        define('CREDENTIALS_PATH', __DIR__ . '/calendar-php-quickstart.json');
-        define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
-        // If modifying these scopes, delete your previously saved credentials
-        // at ~/.credentials/calendar-php-quickstart.json
-        define('SCOPES', implode(' ', array(Google_Service_Calendar::CALENDAR)));
-*/
     }
 
     /**
@@ -64,7 +55,6 @@ class Calender_lib {
                 mkdir(dirname($credentialsPath), 0700, true);
             }
             file_put_contents($credentialsPath, json_encode($accessToken));
-//            printf("Credentials saved to %s\n", $credentialsPath);
         }
         $client->setAccessToken($accessToken);
 
