@@ -16,11 +16,11 @@ class Calender_lib {
     protected $appName = 'JobCoordinator';
     protected $credentialsPath = __DIR__ . '/calendar-php-quickstart.json';
     protected $clientSecretPath = __DIR__ . '/client_secret.json';
-
+    protected $scopes = '';
 
     public function __construct()
     {
-        protected $scopes = implode(' ', array(Google_Service_Calendar::CALENDAR));
+        $this->scopes = implode(' ', array(Google_Service_Calendar::CALENDAR));
         $this->CI =& get_instance();
         date_default_timezone_set('Asia/Tokyo');
     }
