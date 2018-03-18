@@ -46,7 +46,7 @@ class Calender_lib {
         $client->setAccessType('offline');
 
         // Load previously authorized credentials from a file.
-        $credentialsPath = expandHomeDirectory(CREDENTIALS_PATH);
+        $credentialsPath = $this->expandHomeDirectory(CREDENTIALS_PATH);
         if (file_exists($credentialsPath)) {
             $accessToken = json_decode(file_get_contents($credentialsPath), true);
         } else {
@@ -64,7 +64,7 @@ class Calender_lib {
                 mkdir(dirname($credentialsPath), 0700, true);
             }
             file_put_contents($credentialsPath, json_encode($accessToken));
-            printf("Credentials saved to %s\n", $credentialsPath);
+//            printf("Credentials saved to %s\n", $credentialsPath);
         }
         $client->setAccessToken($accessToken);
 
