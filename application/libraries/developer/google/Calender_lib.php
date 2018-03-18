@@ -104,13 +104,20 @@ class Calender_lib {
             'singleEvents' => TRUE,
             'timeMin' => date('c'),
         );
-        $results = $service->events->listEvents($calendarId, $optParams);
 
-        if (count($results->getItems()) == 0) {
-            return false;
-        } else {
-            return $results->getItems();
+        $resData = array();
+        $results = $service->events->listEvents($calendarId, $optParams);
+        if (count($results->getItems()) != 0) {
+            foreach ($results->getItems() as $event) {
+                $start = $event->start->dateTime;
+                if (empty($start)) {
+                    $start = $event->start->date;
+                }
+                $resData[]['start']   = $start;
+                $resData[]['summary'] = $event->getSummary();
+            }
         }
+        return $resData;
     }
 
 }
