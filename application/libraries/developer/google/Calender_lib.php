@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once __DIR__ . '/vendor/autoload.php';
-
+/*
 define('APPLICATION_NAME', 'JobCoordinator');
 define('CREDENTIALS_PATH', __DIR__ . '/calendar-php-quickstart.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/calendar-php-quickstart.json
 define('SCOPES', implode(' ', array(Google_Service_Calendar::CALENDAR)));
-
+*/
 class Calender_lib {
 
     protected $CI;
-/*
-    public $appName = 'JobCoordinator';
-    public $credentialsPath = __DIR__ . '/calendar-php-quickstart.json';
-    public $clientSecretPath = __DIR__ . '/client_secret.json';
-    public $scopes = implode(' ', array(Google_Service_Calendar::CALENDAR));
-*/
+
+    protected $appName = 'JobCoordinator';
+    protected $credentialsPath = __DIR__ . '/calendar-php-quickstart.json';
+    protected $clientSecretPath = __DIR__ . '/client_secret.json';
+    protected $scopes = implode(' ', array(Google_Service_Calendar::CALENDAR));
+
     public function __construct()
     {
         $this->CI =& get_instance();
@@ -31,13 +31,13 @@ class Calender_lib {
     public function getClient()
     {
         $client = new Google_Client();
-        $client->setApplicationName(APPLICATION_NAME);
-        $client->setScopes(SCOPES);
-        $client->setAuthConfig(CLIENT_SECRET_PATH);
+        $client->setApplicationName($this->appName);
+        $client->setScopes($this->scopes);
+        $client->setAuthConfig($this->clientSecretPath);
         $client->setAccessType('offline');
 
         // Load previously authorized credentials from a file.
-        $credentialsPath = $this->expandHomeDirectory(CREDENTIALS_PATH);
+        $credentialsPath = $this->expandHomeDirectory($this->credentialsPath);
         if (file_exists($credentialsPath)) {
             $accessToken = json_decode(file_get_contents($credentialsPath), true);
         } else {
