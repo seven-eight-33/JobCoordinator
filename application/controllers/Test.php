@@ -63,6 +63,9 @@ class Test extends CI_Controller {
         $this->viewData['title']   = 'JobCoordinator-Entry';
         $this->viewData['results'] = $this->resData;
 
+        var_dump($this->viewData['results']);
+        exit;
+
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/test',          $this->viewData);
         $this->load->view($device. '/common/footer', $this->viewData);
