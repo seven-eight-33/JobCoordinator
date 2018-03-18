@@ -63,7 +63,6 @@ class Test extends CI_Controller {
     {
         $device = $this->my_device->_get_user_device();
         $this->viewData['title']     = 'JobCoordinator-Entry';
-        $this->viewData['title']
 
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/test',          $this->viewData);
