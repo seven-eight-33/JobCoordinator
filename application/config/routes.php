@@ -68,5 +68,8 @@ $route['entry/confirm']  = 'Entry/Confirm/index';
 $route['entry/complete'] = 'Entry/Complete/index';
 $route['entry/create/(:any)'] = 'Entry/Create/index/$1';
 
+// Adjust
+$route['adjust'] = 'Adjust/Adjust/index';
+
 // test
 $route['test/(:any)']   = 'Test/index/$1';

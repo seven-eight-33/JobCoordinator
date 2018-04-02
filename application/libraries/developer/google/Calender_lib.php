@@ -1,14 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once __DIR__ . '/vendor/autoload.php';
-/*
-define('APPLICATION_NAME', 'JobCoordinator');
-define('CREDENTIALS_PATH', __DIR__ . '/calendar-php-quickstart.json');
-define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
-// If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/calendar-php-quickstart.json
-define('SCOPES', implode(' ', array(Google_Service_Calendar::CALENDAR)));
-*/
+
 class Calender_lib {
 
     protected $CI;
