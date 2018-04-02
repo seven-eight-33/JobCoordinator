@@ -57,6 +57,9 @@ class Adjust extends CI_Controller {
                 }
                 // メール送信
                 $resMail = $this->adjust_lib->_user_sendMail($mailData);
+                $aaa = '000';
+                if(!$resMail) $aaa = '111';
+                var_dump($aaa); 
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 break;
