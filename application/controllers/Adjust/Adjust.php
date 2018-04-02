@@ -50,8 +50,10 @@ class Adjust extends CI_Controller {
             case self::INPUT_START:     // 初期表示
                 $mailData['name'] = 'test_duest';
                 $mailData['mail'] = 'reon1022@gmail.com';
+                $mailData['subject'] = 'test_subject';
                 $mailData['bot_name'] = 'test_master のアシスタント ケイト';
                 $this->resData = $this->calender_lib->_get_schedule();
+                $mailData['schedule_data'] = '';
                 foreach($this->resData as $data){
                     $mailData['schedule_data'] .= $data['start']. ':'. $data['summary']. '<br>\n';
                 }
