@@ -25,7 +25,7 @@ class Adjust extends CI_Controller {
     {
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
-        $this->_main_view();
+//        $this->_main_view();
     }
 
 /********************* ↓ main function ↓ *********************/
@@ -55,7 +55,7 @@ class Adjust extends CI_Controller {
                 $this->resData = $this->calender_lib->_get_schedule();
                 $mailData['schedule_data'] = '';
                 foreach($this->resData as $data){
-                    $mailData['schedule_data'] .= $data['start']. ':'. $data['summary']. '<br>\n';
+                    $mailData['schedule_data'] .= $data['start']. ':'. $data['summary']. '¥n';
                 }
                 // メール送信
                 $resMail = $this->adjust_lib->_user_sendMail($mailData);
