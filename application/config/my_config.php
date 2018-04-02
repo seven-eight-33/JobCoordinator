@@ -9,6 +9,9 @@ $config['reg_user_subject_user_temp'] = 'JobCoordinatorの仮登録が完了し�
 $config['reg_user_subject_user']      = 'JobCoordinatorの本登録が完了しました。';
 $config['reg_user_subject_admin']     = 'JobCoordinator会員登録通知';
 
+$config['adjust_from_admin_mail'] = 'test.kate.jobcoordinator@gmail.com';
+$config['adjust_from_admin_name'] = 'JobCoordinator ケイト';
+
 $config['magic_count'] = $_SERVER['MAGIC_COUNT'];
 $config['magic_code']  = $_SERVER['MAGIC_CODE'];
 $config['magic_type']  = $_SERVER['MAGIC_TYPE'];

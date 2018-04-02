@@ -9,14 +9,15 @@ class Adjust extends CI_Controller {
 
     protected $viewType = 0;
     protected $viewData = NULL;
-
-    protected $outData = '';
+    protected $resData  = NULL;
+    protected $mailData = NULL;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->load->library('developer/google/Calender_lib');
+        $this->load->library('controllers/Adjust/Adjust_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/
@@ -30,10 +31,6 @@ class Adjust extends CI_Controller {
 /********************* ↓ main function ↓ *********************/
     protected function _preprocess()
     {
-        if (php_sapi_name() != 'cli') {
-          throw new Exception('This application must be run on the command line.');
-        }
-/*
         $res = 0;
         if(empty($this->input->post('action'))){
             $res = self::INPUT_START;
@@ -45,71 +42,35 @@ class Adjust extends CI_Controller {
             }
         }
         return $res;
-*/
     }
 
     protected function _mainprocess()
     {
-
-
-        // Get the API client and construct the service object.
-        $client = $this->calender_lib->getClient();
-        $service = new Google_Service_Calendar($client);
-
-        // Print the next 10 events on the user's calendar.
-        $calendarId = 'primary';
-        $optParams = array(
-            'maxResults' => 10,
-            'orderBy' => 'startTime',
-            'singleEvents' => TRUE,
-            'timeMin' => date('c'),
-        );
-        $results = $service->events->listEvents($calendarId, $optParams);
-
-        if (count($results->getItems()) == 0) {
-            $this->outData = "No upcoming events found.\n";
-        } else {
-            $this->outData = "Upcoming events:\n";
-            foreach ($results->getItems() as $event) {
-                $start = $event->start->dateTime;
-                if (empty($start)) {
-                    $start = $event->start->date;
-                }
-                $this->outData .= $event->getSummary(). '('. $start. ')<br>\n';
-            }
-        }
-
-
-
-
-
-/*        switch($this->viewType){
+        switch($this->viewType){
             case self::INPUT_START:     // 初期表示
-                if($this->session->has_userdata('fix_flg') && $this->session->userdata('fix_flg') == 1){
-                    // 確認画面からの画面遷移の場合(修正)入力値を復元させる
-                    $_POST = $this->session->userdata($this->config->item('sess_entry'));
-                    $this->session->unset_userdata('fix_flg');
+                $mailData['name'] = 'test_duest';
+                $mailData['bot_name'] = 'test_master のアシスタント ケイト';
+                $this->resData = $this->calender_lib->_get_schedule();
+                foreach($this->resData as $data){
+                    $mailData['schedule_data'] .= $data['start']. ':'. $data['summary']. '<br>\n';
                 }
+                // メール送信
+                $resMail = $this->adjust_lib->_user_sendMail($mailData);
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
-                // session 登録
-                $userInput = array_merge($this->input->post(), $this->entry_lib->_make_pass($this->input->post('password')));
-                $this->session->set_userdata($this->config->item('sess_entry'), $userInput);
-                redirect('entry/confirm');
                 break;
             case self::INPUT_ERROR:     // 入力エラー
                 break;
             default:
                 break;
         }
-*/
     }
 
     protected function _main_view()
     {
         $device = $this->my_device->_get_user_device();
         $this->viewData['title'] = 'JobCoordinator-Entry';
-        $this->viewData['data']  = $this->outData;
+        $this->viewData['results'] = $this->resData;
 
         $this->load->view($device. '/common/header', $this->viewData);
         $this->load->view($device. '/test',          $this->viewData);
