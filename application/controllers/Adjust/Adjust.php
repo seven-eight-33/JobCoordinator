@@ -17,7 +17,7 @@ class Adjust extends CI_Controller {
         parent::__construct();
         $this->load->model('User', 'modelUser', TRUE);
         $this->load->library('developer/google/Calender_lib');
-        $this->load->library('controllers/Adjust/Adjust_lib');
+        $this->load->library('controllers/Adjust/adjust_lib');
     }
 
 /********************* ↓ routes function ↓ *********************/

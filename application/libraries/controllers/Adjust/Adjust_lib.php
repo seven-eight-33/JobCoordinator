@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mypage_lib {
+class Adjust_lib {
 
     protected $CI;
 
