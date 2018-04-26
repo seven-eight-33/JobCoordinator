@@ -81,8 +81,8 @@ class Calender_lib {
         $service = new Google_Service_Calendar($client);
 
         // Print the next 10 events on the user's calendar.
-        $calendarId = 'primary';
-//        $calendarId = '2tm8362ftut5lnpka6ia1kqi9k@group.calendar.google.com';
+//        $calendarId = 'primary';
+        $calendarId = '2tm8362ftut5lnpka6ia1kqi9k@group.calendar.google.com';
         $optParams = array(
             'maxResults' => 10,
             'orderBy' => 'startTime',
