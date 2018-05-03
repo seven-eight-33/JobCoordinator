@@ -25,7 +25,6 @@ class Adjust extends CI_Controller {
     {
         $this->viewType = $this->_preprocess();
         $this->_mainprocess();
-//        $this->_main_view();
     }
 
 /********************* ↓ main function ↓ *********************/
@@ -61,7 +60,7 @@ class Adjust extends CI_Controller {
                 $resMail = $this->adjust_lib->_user_sendMail($mailData);
                 $aaa = '000';
                 if(!$resMail) $aaa = '111';
-                var_dump($aaa);
+                var_dump($this->input->post());
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 break;
@@ -70,17 +69,6 @@ class Adjust extends CI_Controller {
             default:
                 break;
         }
-    }
-
-    protected function _main_view()
-    {
-        $device = $this->my_device->_get_user_device();
-        $this->viewData['title'] = 'JobCoordinator-Entry';
-        $this->viewData['results'] = $this->resData;
-
-        $this->load->view($device. '/common/header', $this->viewData);
-        $this->load->view($device. '/test',          $this->viewData);
-        $this->load->view($device. '/common/footer', $this->viewData);
     }
 
 /********************* ↓ sub function ↓ *********************/
