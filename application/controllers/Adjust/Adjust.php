@@ -60,7 +60,7 @@ class Adjust extends CI_Controller {
                 $resMail = $this->adjust_lib->_user_sendMail($mailData);
                 $aaa = '000';
                 if(!$resMail) $aaa = '111';
-                var_dump($this->input->post());
+                var_dump($this->input->post('mail_info'));
                 break;
             case self::INPUT_SUCCESS:   // 確認画面へ
                 break;
