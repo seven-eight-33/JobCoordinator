@@ -101,9 +101,9 @@ class Input extends CI_Controller {
         }
 
         // 期間指定の選択状態および期間指定状態の入力パラメータ
-        $IndateMonth = $this->input->post('date_month');
-        $IndateStart = $this->input->post('date_start');
-        $IndateEnd   = $this->input->post('date_end');
+        $IndateMonth = $this->input->get('date_month');
+        $IndateStart = $this->input->get('date_start');
+        $IndateEnd   = $this->input->get('date_end');
         // 検索期間、期間指定状態の取得
         $period = $this->attendance_lib->_get_period_status($IndateMonth, $IndateStart, $IndateEnd);
 

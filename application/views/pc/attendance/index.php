@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li><input type="radio" name="btn" id="a" <?php if ( $result['selectedMonth']) echo 'checked = "checked"' ?>>表示月を選択する</li>
                 <li><input type="radio" name="btn" id="b" <?php if ( $result['selectedrange']) echo 'checked = "checked"' ?>>期間指定をする</li>
             </ul>
-            <form method="post" action="/JobCoordinator/attendance/input" id="datepicker-default" <?php if (!$result['selectedMonth']) echo 'style="display: none;"' ?>>
+            <form method="get" action="/JobCoordinator/attendance/input" id="datepicker-default" <?php if (!$result['selectedMonth']) echo 'style="display: none;"' ?>>
                 <div class="form-group well">
                     <span class="control-label">表示月指定</span>
                     <div class="form-inline">
@@ -63,9 +63,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <button type='submit' name='view' id="input-datemonth">出力</button>
                 </div>
-                <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
             </form>
-            <form method="post" action="/JobCoordinator/attendance/input" id="datepicker-daterange" <?php if (!$result['selectedrange']) echo 'style="display: none;"' ?>>
+            <form method="get" action="/JobCoordinator/attendance/input" id="datepicker-daterange" <?php if (!$result['selectedrange']) echo 'style="display: none;"' ?>>
                 <div class="form-group well">
                     <span class="control-label">期間</span>
                     <div class="form-inline">
@@ -77,7 +76,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <button type='submit' name='view' id="input-daterange">出力</button>
                 </div>
-                <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
             </form>
             <!-- List -->
             <?php $this->load->view($this->my_device->_get_user_device(). '/attendance/attendList'); ?>
